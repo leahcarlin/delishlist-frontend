@@ -1,0 +1,44 @@
+.MyLists {
+  display: flex;
+  flex-direction: column;
+
+  li {
+    list-style-type: none;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .ListName,
+    .ListDetails {
+      margin: 10px;
+    }
+    .ListName {
+      background-color: #d62828;
+      color: white;
+      border-radius: 10px;
+      padding: 10px 30px 10px 30px;
+    }
+    .ListDetails {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+.AddList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  margin: 20px 0 0 25px;
+
+  p {
+    margin: 0 0 0 10px;
+  }
+}
