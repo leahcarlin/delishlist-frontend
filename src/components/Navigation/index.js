@@ -7,6 +7,8 @@ import { selectToken } from "../../store/user/selectors";
 import NavbarItem from "./NavbarItem";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navigation() {
   const token = useSelector(selectToken);
@@ -15,8 +17,17 @@ export default function Navigation() {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand as={NavLink} to="/">
-        &#127869; DELISH LIST
+      <Navbar.Brand
+        as={NavLink}
+        to="/"
+        style={{
+          margin: "10px",
+          fontFamily: "'Ceviche One', cursive",
+          fontSize: "2em",
+        }}
+      >
+        <FontAwesomeIcon icon={faUtensils} style={{ marginRight: "10px" }} />
+        DELISH LIST
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

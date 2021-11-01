@@ -20,7 +20,6 @@ export default function UserProfile(props) {
             width: "150px",
             maxWidth: "100%",
             height: "auto",
-            marginRight: "20px",
             borderRadius: "10px",
           }}
         />
@@ -33,9 +32,9 @@ export default function UserProfile(props) {
           justifyContent: "center",
         }}
       >
-        <h4>
+        <h5>
           {user.firstName} {user.lastName}
-        </h4>
+        </h5>
         <p style={{ margin: "0" }}>
           <b>{user.myLists.length}</b> lists
         </p>
