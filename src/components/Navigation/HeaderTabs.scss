@@ -4,16 +4,22 @@
   align-items: center;
   font-family: "Baloo 2", cursive;
 
-  button {
+  p {
     list-style-type: none;
     margin: 5px;
     background-color: white;
     border: none;
     border-radius: 10px;
+    color: black;
   }
-  button:hover {
+  p:hover {
     background-color: #d62828;
     color: white;
     font-weight: bold;
+    padding: 5px;
+  }
+
+  .link {
+    text-decoration: none;
   }
 }

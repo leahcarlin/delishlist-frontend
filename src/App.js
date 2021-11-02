@@ -14,6 +14,7 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
 import MyLists from "./pages/MyLists";
+import ListDetails from "./pages/ListDetails";
 
 const Other = () => (
   <Jumbotron>
@@ -37,7 +38,7 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={MyLists} />
-        <Route path="/other" component={Other} />
+        <Route path="/list/:id" component={ListDetails} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>

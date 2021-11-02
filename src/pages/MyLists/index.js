@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { newList } from "../../store/user/actions";
+import { Link } from "react-router-dom";
 
 export default function MyLists() {
   const user = useSelector(selectUser);
@@ -29,6 +30,8 @@ export default function MyLists() {
 
   const submitList = () => {
     dispatch(newList(title));
+    setTitle("");
+    setAddList(false);
   };
 
   if (!token || !lists) return <Loading />;
@@ -39,7 +42,9 @@ export default function MyLists() {
       <Row className="MyLists">
         {lists.map((list) => (
           <li>
-            <Col className="ListName">{list.title}</Col>
+            <Link to={`/list/${list.id}`} style={{ textDecoration: "none" }}>
+              <Col className="ListName">{list.title}</Col>
+            </Link>
             <Col className="ListDetails">
               <FontAwesomeIcon icon={faUserFriends} />
               <p>with # others</p>
