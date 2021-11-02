@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Container, Row, Col, Form, Dropdown } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListDetails } from "../../store/list/actions";
@@ -28,11 +28,31 @@ export default function ListDetails() {
       <Row className="ListDetails" style={{ marginTop: "20px" }}>
         <h2>{list.title}</h2>
         <p>Created {moment(list.createdAt).format("LL")}</p>
-        {list.users.length - 1 === 1 ? (
-          <p>1 collaborator</p>
-        ) : (
-          <p>{list.users.length - 1} collaborators</p>
-        )}
+        <Dropdown>
+          <Dropdown.Toggle
+            style={{
+              background: "none",
+              color: "black",
+              border: "none",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {list.users.length === 1 ? (
+              <p>1 collaborator</p>
+            ) : (
+              <p>{list.users.length} collaborators</p>
+            )}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {list.users.map((user) => (
+              <Dropdown.Item style={{ fontSize: ".75em" }}>
+                {user.firstName}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
       </Row>
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (

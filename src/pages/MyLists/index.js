@@ -14,15 +14,19 @@ import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { newList } from "../../store/user/actions";
 import { Link } from "react-router-dom";
+import { selectListDetails } from "../../store/list/selectors";
+import { selectNumCollabs } from "../../store/user/selectors";
+import { fetchListDetails } from "../../store/list/actions";
 
 export default function MyLists() {
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
   const lists = useSelector(selectMyLists);
   const dispatch = useDispatch();
-  // console.log("my lists", lists);
   const [title, setTitle] = useState("");
   const [addList, setAddList] = useState(false);
+  const [collab, setCollab] = useState("");
+  console.log("collab", collab);
 
   useEffect(() => {
     dispatch(fetchMyLists);
@@ -47,7 +51,11 @@ export default function MyLists() {
             </Link>
             <Col className="ListDetails">
               <FontAwesomeIcon icon={faUserFriends} />
-              <p>with # others</p>
+              {list.users.length === 1 ? (
+                <p>1 collaborator</p>
+              ) : (
+                <p>{list.users.length} collaborators</p>
+              )}
             </Col>
           </li>
         ))}
