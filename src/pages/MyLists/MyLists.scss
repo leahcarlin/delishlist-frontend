@@ -1,0 +1,50 @@
+.MyLists {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  font-family: "Baloo 2", cursive;
+
+  li {
+    list-style-type: none;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .ListName,
+    .ListDetails {
+      margin-left: 5px;
+    }
+    .ListName {
+      background-color: #d62828;
+      color: white;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .ListDetails {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+.AddList {
+  p {
+    margin: 0 0 0 10px;
+    font-size: 1em;
+  }
+
+  .AddButton {
+    background-color: white;
+    border: none;
+    display: flex;
+    margin: 20px 0 0 25px;
+  }
+}
