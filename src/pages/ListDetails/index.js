@@ -28,28 +28,33 @@ export default function ListDetails() {
       <Row className="ListDetails" style={{ marginTop: "20px" }}>
         <h2>{list.title}</h2>
         <p>Created {moment(list.createdAt).format("LL")}</p>
+        {list.users.length - 1 === 1 ? (
+          <p>1 collaborator</p>
+        ) : (
+          <p>{list.users.length - 1} collaborators</p>
+        )}
       </Row>
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (
-          <Row style={{ margin: "5px" }}>
+          <Row style={{ marginBottom: "5px" }}>
             <Col>
               <img
                 src={res.photo}
                 alt={res.name}
                 style={{
-                  width: "200px",
+                  maxWidth: "140px",
                   borderRadius: "10px",
                 }}
               />
             </Col>
-            <Col>
+            <Col className="RestInfo">
               <p>
                 <b>{res.name}</b>
               </p>
               <p>{parseFloat(res.rating)}</p>
               {res.priceLevel ? <p>{res.priceLevel}</p> : null}
             </Col>
-            <Col>
+            <Col className="RestCheck">
               <Form>
                 <Form.Check
                   type="checkbox"
