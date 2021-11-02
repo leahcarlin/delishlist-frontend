@@ -12,6 +12,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const MY_LISTS_FETCHED = "MY_LISTS_FETCHED";
+export const NEW_LIST_SUCCESS = "NEW_LIST_SUCCESS";
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -30,6 +31,13 @@ export const logOut = () => ({ type: LOG_OUT });
 const myListsFetched = (data) => {
   return {
     type: MY_LISTS_FETCHED,
+    payload: data,
+  };
+};
+
+const newListSuccess = (data) => {
+  return {
+    type: NEW_LIST_SUCCESS,
     payload: data,
   };
 };
@@ -123,14 +131,47 @@ export const fetchMyLists = async (dispatch, getState) => {
   dispatch(appLoading());
   try {
     const { token } = selectUser(getState());
-    console.log("token", token);
+    // console.log("token", token);
     const res = await axios.get(`${apiUrl}/mylists`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("res data", res.data);
+    // console.log("res data", res.data);
     dispatch(myListsFetched(res.data));
     dispatch(appDoneLoading());
   } catch (e) {
     console.log(e.message);
+  }
+};
+
+// Create (and be owner of) a new list
+export const newList = (title) => async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const { token, id } = selectUser(getState());
+    console.log("id", id);
+    const res = await axios.post(
+      `${apiUrl}/mylists`,
+      {
+        title,
+        ownerId: id,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("new list", res.data);
+    dispatch(newListSuccess(res.data));
+    dispatch(
+      showMessageWithTimeout("success", true, "New list created!", 1500)
+    );
+    dispatch(appDoneLoading());
+  } catch (e) {
+    if (e.response) {
+      console.log("error:", e.response.data.message);
+      dispatch(setMessage("danger", true, e.response.data.message));
+    } else {
+      console.log("error:", e.message);
+      dispatch(setMessage("danger", true, e.message));
+    }
   }
 };

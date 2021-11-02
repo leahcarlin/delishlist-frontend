@@ -2,13 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: "Baloo 2", cursive;
 
   button {
     list-style-type: none;
     margin: 5px;
     background-color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
   }
   button:hover {
     background-color: #d62828;

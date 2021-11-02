@@ -16,12 +16,11 @@ export default function Navigation() {
   const loginLogoutControls = token ? <LoggedIn /> : <LoggedOut />;
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" style={{ margin: "0 10px 0 10px" }}>
       <Navbar.Brand
         as={NavLink}
         to="/"
         style={{
-          margin: "10px",
           fontFamily: "'Ceviche One', cursive",
           fontSize: "2em",
         }}

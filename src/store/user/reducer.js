@@ -3,6 +3,7 @@ import {
   LOGIN_SUCCESS,
   TOKEN_STILL_VALID,
   MY_LISTS_FETCHED,
+  NEW_LIST_SUCCESS,
 } from "./actions";
 
 const initialState = {
@@ -26,12 +27,16 @@ export default function reducer(state = initialState, action) {
       return { ...state, ...action.payload };
 
     case MY_LISTS_FETCHED:
-      console.log("action in reducer", action.payload);
       return {
         ...state,
         myLists: [...action.payload.lists],
       };
-
+    case NEW_LIST_SUCCESS:
+      console.log("action in reducer", action.payload);
+      return {
+        ...state,
+        myLists: [...state.myLists, action.payload],
+      };
     default:
       return state;
   }
