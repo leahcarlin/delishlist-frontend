@@ -20,7 +20,6 @@ export default function MyLists() {
   const token = useSelector(selectToken);
   const lists = useSelector(selectMyLists);
   const dispatch = useDispatch();
-  // console.log("my lists", lists);
   const [title, setTitle] = useState("");
   const [addList, setAddList] = useState(false);
 
@@ -47,7 +46,11 @@ export default function MyLists() {
             </Link>
             <Col className="ListDetails">
               <FontAwesomeIcon icon={faUserFriends} />
-              <p>with # others</p>
+              {list.users.length === 1 ? (
+                <p>1 collaborator</p>
+              ) : (
+                <p>{list.users.length} collaborators</p>
+              )}
             </Col>
           </li>
         ))}

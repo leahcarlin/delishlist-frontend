@@ -7,7 +7,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LIST_DETAILS_FETCHED:
-      //   console.log("action in reducer", action.payload);
       return {
         ...state,
         listDetails: action.payload,

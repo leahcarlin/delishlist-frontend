@@ -1,5 +1,4 @@
 import { appLoading, appDoneLoading } from "../appState/actions";
-import { selectUser } from "../user/selectors";
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
 
