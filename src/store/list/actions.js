@@ -1,4 +1,8 @@
-import { appLoading, appDoneLoading } from "../appState/actions";
+import {
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../appState/actions";
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
 import { selectListDetails } from "./selectors";
@@ -47,6 +51,10 @@ export const addRestaurantToList =
       });
       console.log("new res", res.data);
       dispatch(addRestaurantSuccess(res.data));
+      dispatch(
+        showMessageWithTimeout("success", true, "Restaurant added!", 1500)
+      );
+      dispatch(appDoneLoading);
     } catch (e) {
       console.log(e.message);
     }

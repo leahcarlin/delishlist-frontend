@@ -15,6 +15,7 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import MyLists from "./pages/MyLists";
 import ListDetails from "./pages/ListDetails";
 import RestaurantDetails from "./pages/RestaurantDetails";
+import FindRestaurants from "./pages/FindRestaurants.js";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={MyLists} />
         <Route path="/list/:id" component={ListDetails} />
+        <Route path="/restaurant/find" component={FindRestaurants} />
         <Route path="/restaurant/:id" component={RestaurantDetails} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
