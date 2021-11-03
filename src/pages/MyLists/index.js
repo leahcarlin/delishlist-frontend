@@ -14,9 +14,6 @@ import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { newList } from "../../store/user/actions";
 import { Link } from "react-router-dom";
-import { selectListDetails } from "../../store/list/selectors";
-import { selectNumCollabs } from "../../store/user/selectors";
-import { fetchListDetails } from "../../store/list/actions";
 
 export default function MyLists() {
   const user = useSelector(selectUser);
@@ -25,8 +22,6 @@ export default function MyLists() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [addList, setAddList] = useState(false);
-  const [collab, setCollab] = useState("");
-  console.log("collab", collab);
 
   useEffect(() => {
     dispatch(fetchMyLists);

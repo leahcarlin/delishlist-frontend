@@ -10,6 +10,7 @@ import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import "moment/locale/en-gb";
 import "./ListDetails.scss";
+import { Link } from "react-router-dom";
 
 export default function ListDetails() {
   const { id } = useParams();
@@ -56,34 +57,39 @@ export default function ListDetails() {
       </Row>
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (
-          <Row style={{ marginBottom: "5px" }}>
-            <Col>
-              <img
-                src={res.photo}
-                alt={res.name}
-                style={{
-                  maxWidth: "140px",
-                  borderRadius: "10px",
-                }}
-              />
-            </Col>
-            <Col className="RestInfo">
-              <p>
-                <b>{res.name}</b>
-              </p>
-              <p>{parseFloat(res.rating)}</p>
-              {res.priceLevel ? <p>{res.priceLevel}</p> : null}
-            </Col>
-            <Col className="RestCheck">
-              <Form>
-                <Form.Check
-                  type="checkbox"
-                  aria-label="checkbox"
-                  id="checkbox"
+          <Link
+            to={`/restaurant/${res.id}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <Row style={{ marginBottom: "5px" }}>
+              <Col>
+                <img
+                  src={res.photo}
+                  alt={res.name}
+                  style={{
+                    maxWidth: "140px",
+                    borderRadius: "10px",
+                  }}
                 />
-              </Form>
-            </Col>
-          </Row>
+              </Col>
+              <Col className="RestInfo">
+                <p>
+                  <b>{res.name}</b>
+                </p>
+                <p>{parseFloat(res.rating)}</p>
+                {res.priceLevel ? <p>{res.priceLevel}</p> : null}
+              </Col>
+              <Col className="RestCheck">
+                <Form>
+                  <Form.Check
+                    type="checkbox"
+                    aria-label="checkbox"
+                    id="checkbox"
+                  />
+                </Form>
+              </Col>
+            </Row>
+          </Link>
         ))}
         <div className="AddRest">
           <button className="AddButton" onClick={() => setAddRest(!addRest)}>

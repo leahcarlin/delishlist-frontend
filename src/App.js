@@ -12,17 +12,11 @@ import HeaderTabs from "./components/Navigation/HeaderTabs";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
-import { Jumbotron } from "react-bootstrap";
 import MyLists from "./pages/MyLists";
 import ListDetails from "./pages/ListDetails";
+import RestaurantDetails from "./pages/RestaurantDetails";
 
-const Other = () => (
-  <Jumbotron>
-    <h1>Other</h1>
-  </Jumbotron>
-);
-
-function App() {
+function App(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
 
@@ -39,6 +33,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={MyLists} />
         <Route path="/list/:id" component={ListDetails} />
+        <Route path="/restaurant/:id" component={RestaurantDetails} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>

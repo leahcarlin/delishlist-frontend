@@ -1,6 +1,8 @@
 .MyLists {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 10px;
   font-family: "Baloo 2", cursive;
 
@@ -8,8 +10,8 @@
     list-style-type: none;
     margin: 10px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 
     .ListName,
     .ListDetails {
@@ -26,11 +28,12 @@
     .ListDetails {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
 
       p {
         margin-top: 5px;
+        margin-bottom: 0;
       }
     }
   }
