@@ -1,24 +1,33 @@
-import React, { useEffect } from "react";
-import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantDetails } from "../../store/restaurant/actions";
 import { selectRestaurantDetails } from "../../store/restaurant/selectors";
 import { selectMyLists } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import "./RestaurantDetails.scss";
+import { selectListDetails } from "../../store/list/selectors";
+import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists } from "../../store/user/actions";
+import { addRestaurantToList } from "../../store/list/actions";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
   const restaurant = useSelector(selectRestaurantDetails);
   const lists = useSelector(selectMyLists);
-  console.log("list", lists);
+  const [addToList, setAddToList] = useState(false);
+  // console.log("list?", lists);
 
   useEffect(() => {
     dispatch(fetchMyLists);
     dispatch(fetchRestaurantDetails("ChIJC83Lp7kJxkcR6e4dkMmc6fQ"));
   }, [dispatch]);
 
+  const addToMyList = (id) => {
+    dispatch(addRestaurantToList(id, restaurant.name, restaurant.place_id));
+  };
+
+  console.log("the restaurant", restaurant);
   if (!restaurant) return <Loading />;
 
   return (
@@ -38,7 +47,7 @@ export default function RestaurantDetails() {
         {restaurant.price_level ? <p>{restaurant.price_level}</p> : null}
       </Row>
       <Row className="RestDetails-row-2" style={{ marginBottom: "20px" }}>
-        {restaurant.opening_hours.weekday_text.map((day) => (
+        {restaurant?.opening_hours.weekday_text.map((day) => (
           <p style={{ margin: "0" }}>{day}</p>
         ))}
       </Row>
@@ -49,33 +58,26 @@ export default function RestaurantDetails() {
       </Row>
       <Row className="RestDetails-row-4">
         <Col className="col-3">
-          <Dropdown>
-            <Dropdown.Toggle
-              style={{
-                background: "none",
-                color: "black",
-                border: "none",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              <p>add to list</p>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {lists.map((list) => (
-                <Dropdown.Item style={{ fontSize: "1em" }}>
-                  {list.title}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+          <button
+            className="AddButton"
+            onClick={() => setAddToList(!addToList)}
+          >
+            <i class="bi bi-list-task"></i>
+            <p>add to list</p>
+          </button>
         </Col>
         <Col className="col-3">
           <p style={{ marginRight: "5px" }}>add to favorites</p>{" "}
           <i class="bi-heart"></i>
         </Col>
       </Row>
+      {!lists ? null : (
+        <Row>
+          {addToList ? (
+            <AddRestaurant lists={lists} addToMyList={addToMyList} />
+          ) : null}
+        </Row>
+      )}
     </Container>
   );
 }

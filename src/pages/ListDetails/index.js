@@ -24,36 +24,45 @@ export default function ListDetails() {
   }, [dispatch, id]);
 
   if (!list) return <Loading />;
+
   return (
     <Container fluid>
-      <Row className="ListDetails" style={{ marginTop: "20px" }}>
+      <Row className="ListDetails-row-1" style={{ marginTop: "20px" }}>
         <h2>{list.title}</h2>
         <p>Created {moment(list.createdAt).format("LL")}</p>
-        <Dropdown>
-          <Dropdown.Toggle
-            style={{
-              background: "none",
-              color: "black",
-              border: "none",
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            {list.users.length === 1 ? (
-              <p>1 collaborator</p>
-            ) : (
-              <p>{list.users.length} collaborators</p>
-            )}
-          </Dropdown.Toggle>
+      </Row>
+      <Row className="ListDetails-row-2">
+        <Col>
+          <Dropdown>
+            <Dropdown.Toggle
+              style={{
+                background: "none",
+                color: "black",
+                border: "none",
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              {list.users.length === 1 ? (
+                <p>1 collaborator</p>
+              ) : (
+                <p>{list.users.length} collaborators</p>
+              )}
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            {list.users.map((user) => (
-              <Dropdown.Item style={{ fontSize: ".75em" }}>
-                {user.firstName}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown.Menu>
+              {list.users.map((user) => (
+                <Dropdown.Item style={{ fontSize: ".75em" }}>
+                  {user.firstName}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col style={{ display: "flex" }}>
+          <i class="bi bi-person-plus-fill"></i>
+          <p style={{ marginLeft: "10px" }}>add collaborator</p>
+        </Col>
       </Row>
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (

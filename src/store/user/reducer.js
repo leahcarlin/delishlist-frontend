@@ -31,11 +31,11 @@ export default function reducer(state = initialState, action) {
         myLists: [...action.payload.lists],
       };
     case NEW_LIST_SUCCESS:
-      console.log("action in reducer", action.payload);
       return {
         ...state,
         myLists: [...state.myLists, action.payload],
       };
+
     default:
       return state;
   }

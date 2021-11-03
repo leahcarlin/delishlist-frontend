@@ -2,7 +2,7 @@ import { appLoading, appDoneLoading } from "../appState/actions";
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
 
-export const REST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
+export const REST_DETAILS_FETCHED = "REST_DETAILS_FETCHED";
 
 const restDetailsFetched = (data) => {
   return {
