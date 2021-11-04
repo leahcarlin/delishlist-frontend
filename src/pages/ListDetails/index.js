@@ -67,7 +67,7 @@ export default function ListDetails() {
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (
           <Link
-            to={`/restaurant/${res.id}`}
+            to={`/restaurant/${res.placeId}`}
             style={{ textDecoration: "none", color: "black" }}
           >
             <Row style={{ marginBottom: "5px" }}>

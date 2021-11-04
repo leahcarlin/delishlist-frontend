@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Dropdown } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantDetails } from "../../store/restaurant/actions";
 import { selectRestaurantDetails } from "../../store/restaurant/selectors";
 import { selectMyLists } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import "./RestaurantDetails.scss";
-import { selectListDetails } from "../../store/list/selectors";
 import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists } from "../../store/user/actions";
 import { addRestaurantToList } from "../../store/list/actions";
+import { useParams } from "react-router";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
   const restaurant = useSelector(selectRestaurantDetails);
   const lists = useSelector(selectMyLists);
   const [addToList, setAddToList] = useState(false);
-  // console.log("list?", lists);
+  const { place_id } = useParams();
 
   useEffect(() => {
     dispatch(fetchMyLists);
-    dispatch(fetchRestaurantDetails("ChIJC83Lp7kJxkcR6e4dkMmc6fQ"));
-  }, [dispatch]);
+    dispatch(fetchRestaurantDetails(place_id));
+  }, [dispatch, place_id]);
 
   const addToMyList = (id) => {
     dispatch(addRestaurantToList(id, restaurant.name, restaurant.place_id));
   };
 
-  console.log("the restaurant", restaurant);
   if (!restaurant) return <Loading />;
 
   return (

@@ -14,6 +14,7 @@ import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { newList } from "../../store/user/actions";
 import { Link } from "react-router-dom";
+import SignUp from "../Login";
 
 export default function MyLists() {
   const user = useSelector(selectUser);
@@ -39,6 +40,9 @@ export default function MyLists() {
     <Container fluid>
       <UserProfile user={user} />
       <Row className="MyLists">
+        <h3>
+          <b>My Lists</b>
+        </h3>
         {lists.map((list) => (
           <li>
             <Link to={`/list/${list.id}`} style={{ textDecoration: "none" }}>

@@ -15,11 +15,13 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import MyLists from "./pages/MyLists";
 import ListDetails from "./pages/ListDetails";
 import RestaurantDetails from "./pages/RestaurantDetails";
-import FindRestaurants from "./pages/FindRestaurants.js";
+import FindRestaurant from "./pages/FindRestaurant";
+import { selectToken } from "./store/user/selectors";
 
 function App(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
+  const token = useSelector(selectToken);
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
@@ -34,10 +36,10 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={MyLists} />
         <Route path="/list/:id" component={ListDetails} />
-        <Route path="/restaurant/find" component={FindRestaurants} />
-        <Route path="/restaurant/:id" component={RestaurantDetails} />
-        <Route path="/signup" component={SignUp} />
+        <Route path="/restaurant/find" component={FindRestaurant} />
+        <Route path="/restaurant/:place_id" component={RestaurantDetails} />
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
       </Switch>
     </div>
   );
