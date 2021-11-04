@@ -11,8 +11,8 @@ export default function HeaderTabs() {
       <Link className="link">
         <p>My Favorites</p>
       </Link>
-      <Link className="link">
-        <p>Browse Restaurants</p>
+      <Link className="link" to="/restaurant/find">
+        <p>Find Restaurants</p>
       </Link>
     </div>
   );

@@ -126,7 +126,7 @@ export const getUserWithStoredToken = () => {
   };
 };
 
-// Get my lists for homepage
+// Get my lists
 export const fetchMyLists = async (dispatch, getState) => {
   dispatch(appLoading());
   try {

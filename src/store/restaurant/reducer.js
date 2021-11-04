@@ -1,7 +1,8 @@
-import { REST_DETAILS_FETCHED } from "./actions";
+import { REST_DETAILS_FETCHED, SEARCH_COMPLETE } from "./actions";
 
 const initialState = {
   restaurantDetails: null,
+  searchResults: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         restaurantDetails: action.payload,
+      };
+    case SEARCH_COMPLETE:
+      return {
+        ...state,
+        searchResults: action.payload,
       };
 
     default:

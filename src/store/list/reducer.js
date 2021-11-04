@@ -1,4 +1,4 @@
-import { LIST_DETAILS_FETCHED } from "./actions";
+import { ADD_RESTAURANT_SUCCESS, LIST_DETAILS_FETCHED } from "./actions";
 
 const initialState = {
   listDetails: null,
@@ -10,6 +10,15 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         listDetails: action.payload,
+      };
+
+    case ADD_RESTAURANT_SUCCESS:
+      return {
+        ...state,
+        listDetails: {
+          ...state.listDetails,
+          restaurants: [...state.listDetails.restaurants, action.payload],
+        },
       };
 
     default:
