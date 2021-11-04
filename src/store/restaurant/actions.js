@@ -25,7 +25,7 @@ export const fetchRestaurantDetails =
     dispatch(appLoading());
     try {
       const res = await axios.get(`${apiUrl}/restaurant/${placeId}`);
-      console.log("rest details", res.data.result);
+      // console.log("rest details", res.data.result);
       dispatch(restDetailsFetched(res.data.result));
       dispatch(appDoneLoading());
     } catch (e) {
@@ -40,7 +40,7 @@ export const searchRestaurant = (name) => async (dispatch, getState) => {
     const res = await axios.post(`${apiUrl}/restaurant/search`, {
       name,
     });
-    console.log("search results", res.data.candidates);
+    // console.log("search results", res.data.candidates);
     dispatch(completeSearch(res.data.candidates));
     dispatch(appDoneLoading());
   } catch (e) {

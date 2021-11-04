@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Dropdown } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container, Row, Col, Form, Dropdown, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListDetails } from "../../store/list/actions";
 import { selectListDetails } from "../../store/list/selectors";
 import Loading from "../../components/Loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import "moment/locale/en-gb";
 import "./ListDetails.scss";
 import { Link } from "react-router-dom";
+import { apiKey } from "../../config/constants";
 
 export default function ListDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const list = useSelector(selectListDetails);
   moment.locale("en-gb"); // european date format
-  const [addRest, setAddRest] = useState(false);
 
   useEffect(() => {
     dispatch(fetchListDetails(id));
@@ -66,47 +64,49 @@ export default function ListDetails() {
       </Row>
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (
-          <Link
-            to={`/restaurant/${res.placeId}`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <Row style={{ marginBottom: "5px" }}>
-              <Col>
-                <img
-                  src={res.photo}
-                  alt={res.name}
-                  style={{
-                    maxWidth: "140px",
-                    borderRadius: "10px",
-                  }}
+          <Row className="RestaurantDetails">
+            <Col>
+              <Link to={`/restaurant/${res.placeId}`}>
+                <Image
+                  style={{ borderRadius: "10px" }}
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
                 />
-              </Col>
-              <Col className="RestInfo">
+              </Link>
+            </Col>
+            <Col className="RestInfo">
+              <Link
+                to={`/restaurant/${res.placeId}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 <p>
                   <b>{res.name}</b>
                 </p>
-                <p>{parseFloat(res.rating)}</p>
-                {res.priceLevel ? <p>{res.priceLevel}</p> : null}
-              </Col>
-              <Col className="RestCheck">
-                <Form>
-                  <Form.Check
-                    type="checkbox"
-                    aria-label="checkbox"
-                    id="checkbox"
-                  />
-                </Form>
-              </Col>
-            </Row>
-          </Link>
+              </Link>
+              <p>{parseFloat(res.rating)}</p>
+              {res.priceLevel ? <p>{res.priceLevel}</p> : null}
+            </Col>
+            <Col className="RestCheck">
+              <Form>
+                <Form.Check
+                  type="checkbox"
+                  aria-label="checkbox"
+                  id="checkbox"
+                />
+              </Form>
+            </Col>
+          </Row>
         ))}
-        <div className="AddRest">
-          <button className="AddButton" onClick={() => setAddRest(!addRest)}>
-            <FontAwesomeIcon icon={faPlusCircle} />
-            <p>Add a restaurant</p>
-          </button>
-        </div>
       </Row>
+      <Link
+        className="link"
+        to="/restaurant/find"
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <div className="AddRest">
+          <i class="bi bi-plus-circle"></i>
+          <p>Add a restaurant</p>
+        </div>
+      </Link>
     </Container>
   );
 }

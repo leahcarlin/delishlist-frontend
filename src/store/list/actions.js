@@ -41,13 +41,17 @@ export const fetchListDetails = (id) => async (dispatch, getState) => {
 
 //Add a restaurant to a list
 export const addRestaurantToList =
-  (listId, name, placeId) => async (dispatch, getState) => {
+  (id, name, photoReference, placeId, priceLevel, rating) =>
+  async (dispatch, getState) => {
     dispatch(appLoading());
     try {
-      console.log("list id", listId);
-      const res = await axios.post(`${apiUrl}/mylists/${listId}`, {
+      console.log("list id", id);
+      const res = await axios.post(`${apiUrl}/mylists/${id}`, {
         name,
+        photoReference,
         placeId,
+        priceLevel,
+        rating,
       });
       console.log("new res", res.data);
       dispatch(addRestaurantSuccess(res.data));

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantDetails } from "../../store/restaurant/actions";
 import { selectRestaurantDetails } from "../../store/restaurant/selectors";
@@ -10,6 +10,7 @@ import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists } from "../../store/user/actions";
 import { addRestaurantToList } from "../../store/list/actions";
 import { useParams } from "react-router";
+import { apiKey } from "../../config/constants";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
@@ -24,17 +25,25 @@ export default function RestaurantDetails() {
   }, [dispatch, place_id]);
 
   const addToMyList = (id) => {
-    dispatch(addRestaurantToList(id, restaurant.name, restaurant.place_id));
+    dispatch(
+      addRestaurantToList(
+        id,
+        restaurant.name,
+        restaurant.photos[0].photo_reference,
+        restaurant.place_id,
+        restaurant.price_level,
+        restaurant.rating
+      )
+    );
   };
 
   if (!restaurant) return <Loading />;
 
   return (
     <Container fluid className="RestDetailsContainer">
-      <Row style={{ marginTop: "20px" }} className="RestDetails-row-1">
-        <img
-          src="http://veraconsulting.it/wp-content/uploads/2014/04/placeholder.png"
-          alt={restaurant.name}
+      <Row className="RestDetails-row-1">
+        <Image
+          src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${restaurant.photos[0].photo_reference}&key=${apiKey}`}
         />
       </Row>
       <Row style={{ marginTop: "20px" }}>

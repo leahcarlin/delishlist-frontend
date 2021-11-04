@@ -2,6 +2,10 @@ import React from "react";
 
 export default function UserProfile(props) {
   const { user } = props;
+  const sharedLists = user.myLists.filter((list) => {
+    return list.users.length > 1;
+  });
+
   return (
     <div
       className="userDetails"
@@ -38,7 +42,15 @@ export default function UserProfile(props) {
         <p style={{ margin: "0" }}>
           <b>{user.myLists.length}</b> lists
         </p>
-        <p># of shared lists</p>
+        {sharedLists.length === 1 ? (
+          <p>
+            <b>1</b> shared list
+          </p>
+        ) : (
+          <p>
+            <b>{sharedLists.length}</b> shared lists
+          </p>
+        )}
       </div>
     </div>
   );

@@ -9,9 +9,9 @@ export default function AddRestaurant(props) {
       <p>
         <b>My Lists:</b>
       </p>
-      {lists.map((list, index) => (
+      {lists.map((list) => (
         <button
-          style={{ border: "none" }}
+          style={{ border: "none", backgroundColor: "white" }}
           key={list.id}
           onClick={() => addToMyList(list.id)}
         >

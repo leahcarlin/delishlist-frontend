@@ -61,7 +61,7 @@ export default function MyLists() {
       </Row>
       <div className="AddList">
         <button className="AddButton" onClick={() => setAddList(!addList)}>
-          <FontAwesomeIcon icon={faPlusCircle} />
+          <i class="bi bi-plus-circle"></i>
           <p>Create a New List</p>
         </button>
         {!addList ? null : (
