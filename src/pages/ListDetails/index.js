@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { Container, Row, Col, Form, Dropdown, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchListDetails } from "../../store/list/actions";
+import {
+  fetchListDetails,
+  markRestaurantVisited,
+} from "../../store/list/actions";
 import { selectListDetails } from "../../store/list/selectors";
 import Loading from "../../components/Loading";
 import moment from "moment";
@@ -20,6 +23,10 @@ export default function ListDetails() {
   useEffect(() => {
     dispatch(fetchListDetails(id));
   }, [dispatch, id]);
+
+  const clickCheckbox = (restaurantId) => {
+    dispatch(markRestaurantVisited(id, restaurantId));
+  };
 
   if (!list) return <Loading />;
 
@@ -69,7 +76,7 @@ export default function ListDetails() {
       </Row>
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (
-          <Row className="RestaurantDetails">
+          <Row className="RestaurantDetails" key={res.id}>
             <Col>
               <Link to={`/restaurant/${res.placeId}`}>
                 <Image
@@ -91,13 +98,13 @@ export default function ListDetails() {
               {res.priceLevel ? <p>{res.priceLevel}</p> : null}
             </Col>
             <Col className="RestCheck">
-              <Form>
-                <Form.Check
-                  type="checkbox"
-                  aria-label="checkbox"
-                  id="checkbox"
-                />
-              </Form>
+              <button onClick={() => clickCheckbox(res.id)}>
+                {res.listRest.visited === true ? (
+                  <i class="bi bi-check-circle"></i>
+                ) : (
+                  <i class="bi bi-circle"></i>
+                )}
+              </button>
             </Col>
           </Row>
         ))}
@@ -115,3 +122,11 @@ export default function ListDetails() {
     </Container>
   );
 }
+
+// <Form>
+//   <Form.Check
+//     type="checkbox"
+//     aria-label="checkbox"
+//     onChange={() => clickCheckbox(res.id)}
+//   />
+// </Form>
