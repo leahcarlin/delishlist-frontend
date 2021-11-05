@@ -2,13 +2,15 @@ import {
   appLoading,
   appDoneLoading,
   showMessageWithTimeout,
+  setMessage,
 } from "../appState/actions";
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectListDetails } from "./selectors";
+import { selectUser } from "../user/selectors";
 
 export const LIST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
 export const ADD_RESTAURANT_SUCCESS = "ADD_RESTAURANT_SUCCESS";
+export const COLLABORATOR_ADDED = "COLLABORATOR_ADDED";
 
 const listDetailsFetched = (data) => {
   console.log("list details fetched action creator");
@@ -22,6 +24,13 @@ const addRestaurantSuccess = (data) => {
   console.log("list add restaurant action creator");
   return {
     type: ADD_RESTAURANT_SUCCESS,
+    payload: data,
+  };
+};
+
+const collaboratorAdded = (data) => {
+  return {
+    type: COLLABORATOR_ADDED,
     payload: data,
   };
 };
@@ -61,5 +70,37 @@ export const addRestaurantToList =
       dispatch(appDoneLoading);
     } catch (e) {
       console.log(e.message);
+    }
+  };
+
+// Add a collaborator to my list
+export const AddCollaboratorToList =
+  (listId, userId, history) => async (dispatch, getState) => {
+    dispatch(appLoading());
+    try {
+      const { token } = selectUser(getState());
+      const res = await axios.get(`${apiUrl}/mylists/${listId}/add/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("which collaborator was added?", res.data);
+      dispatch(collaboratorAdded(res.data));
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          true,
+          "User added as a collaborator!",
+          1500
+        )
+      );
+      history.push(`/list/${listId}`);
+      dispatch(appDoneLoading());
+    } catch (e) {
+      if (e.response) {
+        console.log("error:", e.response.data.message);
+        dispatch(setMessage("danger", true, e.response.data.message));
+      } else {
+        console.log("error:", e.message);
+        dispatch(setMessage("danger", true, e.message));
+      }
     }
   };

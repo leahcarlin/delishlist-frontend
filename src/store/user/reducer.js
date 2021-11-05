@@ -4,12 +4,14 @@ import {
   TOKEN_STILL_VALID,
   MY_LISTS_FETCHED,
   NEW_LIST_SUCCESS,
+  SEARCH_COMPLETE,
 } from "./actions";
 
 const initialState = {
   token: localStorage.getItem("token"),
   email: null,
   myLists: null,
+  searchResults: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -34,6 +36,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         myLists: [...state.myLists, action.payload],
+      };
+
+    case SEARCH_COMPLETE:
+      return {
+        ...state,
+        searchResults: action.payload,
       };
 
     default:
