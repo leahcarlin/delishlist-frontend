@@ -24,7 +24,6 @@ export default function reducer(state = initialState, action) {
           restaurants: [...state.listDetails.restaurants, action.payload],
         },
       };
-
     default:
       return state;
   }
