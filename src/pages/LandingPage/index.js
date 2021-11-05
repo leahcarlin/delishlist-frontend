@@ -28,13 +28,17 @@ export default function LandingPage() {
           style={{ marginLeft: "15px", fontSize: "1.5em" }}
         />
       </div>
-      <p className="Info">
-        An app where you and your friends can create wish lists of restaurants
-        you want to visit.
-      </p>
+      <div className="AppInfo">
+        <p>
+          An app where you and your friends can create wish lists of restaurants
+          you want to visit
+        </p>
+      </div>
       <div className="link-to-login">
         <h4>To use this app you have to log in or create an account</h4>
-        <Link to="/login">Log in</Link>
+        <Link to="/login">
+          <button>Log in</button>
+        </Link>
       </div>
     </div>
   );

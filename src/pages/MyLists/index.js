@@ -33,6 +33,15 @@ export default function MyLists() {
     setTitle("");
     setAddList(false);
   };
+  const printCollabs = (users) => {
+    let numCollabs = "";
+    if (users.length === 1) {
+      numCollabs = "personal list";
+    } else {
+      numCollabs = `${users.length} collaborators`;
+    }
+    return numCollabs;
+  };
 
   if (!token || !lists) return <Loading />;
 
@@ -50,11 +59,7 @@ export default function MyLists() {
             </Link>
             <Col className="ListDetails">
               <FontAwesomeIcon icon={faUserFriends} />
-              {list.users.length === 1 ? (
-                <p>1 collaborator</p>
-              ) : (
-                <p>{list.users.length} collaborators</p>
-              )}
+              <p>{printCollabs(list.users)}</p>
             </Col>
           </li>
         ))}

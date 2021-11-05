@@ -50,14 +50,16 @@ const searchComplete = (data) => {
   };
 };
 
-export const signUp = (name, email, password) => {
+export const signUp = (firstName, lastName, email, password, profileImg) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/signup`, {
-        name,
+        firstName,
+        lastName,
         email,
         password,
+        profileImg,
       });
 
       dispatch(loginSuccess(response.data));
