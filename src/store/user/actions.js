@@ -13,6 +13,7 @@ export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const MY_LISTS_FETCHED = "MY_LISTS_FETCHED";
 export const NEW_LIST_SUCCESS = "NEW_LIST_SUCCESS";
+export const SEARCH_COMPLETE = "SEARCH_COMPLETE";
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -38,6 +39,13 @@ const myListsFetched = (data) => {
 const newListSuccess = (data) => {
   return {
     type: NEW_LIST_SUCCESS,
+    payload: data,
+  };
+};
+
+const searchComplete = (data) => {
+  return {
+    type: SEARCH_COMPLETE,
     payload: data,
   };
 };
@@ -164,6 +172,27 @@ export const newList = (title) => async (dispatch, getState) => {
     dispatch(
       showMessageWithTimeout("success", true, "New list created!", 1500)
     );
+    dispatch(appDoneLoading());
+  } catch (e) {
+    if (e.response) {
+      console.log("error:", e.response.data.message);
+      dispatch(setMessage("danger", true, e.response.data.message));
+    } else {
+      console.log("error:", e.message);
+      dispatch(setMessage("danger", true, e.message));
+    }
+  }
+};
+
+// Search for a user
+export const searchUser = (name) => async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const res = await axios.post(`${apiUrl}/user/search`, {
+      name,
+    });
+    console.log("search data", res.data);
+    dispatch(searchComplete(res.data));
     dispatch(appDoneLoading());
   } catch (e) {
     if (e.response) {

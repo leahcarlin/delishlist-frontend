@@ -58,8 +58,13 @@ export default function ListDetails() {
           </Dropdown>
         </Col>
         <Col style={{ display: "flex" }}>
-          <i class="bi bi-person-plus-fill"></i>
-          <p style={{ marginLeft: "10px" }}>add collaborator</p>
+          <Link
+            to={`/users/add/list/${list.id}`}
+            style={{ textDecoration: "none", color: "black", display: "flex" }}
+          >
+            <i class="bi bi-person-plus-fill"></i>
+            <p style={{ marginLeft: "10px" }}>add collaborator</p>
+          </Link>
         </Col>
       </Row>
       <Row className="RestaurantList">
@@ -73,7 +78,7 @@ export default function ListDetails() {
                 />
               </Link>
             </Col>
-            <Col className="RestInfo">
+            <Col className="RestInfo" xs={5}>
               <Link
                 to={`/restaurant/${res.placeId}`}
                 style={{ textDecoration: "none", color: "black" }}

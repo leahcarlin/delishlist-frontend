@@ -16,12 +16,12 @@ import MyLists from "./pages/MyLists";
 import ListDetails from "./pages/ListDetails";
 import RestaurantDetails from "./pages/RestaurantDetails";
 import FindRestaurant from "./pages/FindRestaurant";
-import { selectToken } from "./store/user/selectors";
+import AddCollaborator from "./pages/AddCollaborator";
+import LandingPage from "./pages/LandingPage";
 
 function App(props) {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
-  const token = useSelector(selectToken);
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
@@ -34,9 +34,11 @@ function App(props) {
       <MessageBox />
       {isLoading ? <Loading /> : null}
       <Switch>
-        <Route exact path="/" component={MyLists} />
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/home" component={MyLists} />
         <Route path="/list/:id" component={ListDetails} />
         <Route path="/restaurant/find" component={FindRestaurant} />
+        <Route path="/users/add/list/:id" component={AddCollaborator} />
         <Route path="/restaurant/:place_id" component={RestaurantDetails} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />

@@ -1,0 +1,20 @@
+.LandingPageContainer {
+  margin-top: 50px;
+  text-align: center;
+
+  h1 {
+    font-family: "Ceviche One", cursive;
+    text-transform: uppercase;
+    font-size: 3em;
+    color: #d62828;
+  }
+
+  .Title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .link-to-Login {
+    margin-top: 50px;
+  }
+}

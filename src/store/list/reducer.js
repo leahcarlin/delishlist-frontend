@@ -1,4 +1,8 @@
-import { ADD_RESTAURANT_SUCCESS, LIST_DETAILS_FETCHED } from "./actions";
+import {
+  ADD_RESTAURANT_SUCCESS,
+  LIST_DETAILS_FETCHED,
+  COLLABORATOR_ADDED,
+} from "./actions";
 
 const initialState = {
   listDetails: null,

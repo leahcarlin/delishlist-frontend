@@ -96,7 +96,12 @@ export default function FindRestaurant() {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Link to={`/restaurant/${result.place_id}`}>View</Link>
+                    <Link
+                      to={`/restaurant/${result.place_id}`}
+                      style={{ color: "black" }}
+                    >
+                      View
+                    </Link>
                     <button
                       className="add-btn"
                       onClick={() => {
