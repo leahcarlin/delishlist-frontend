@@ -1,7 +1,7 @@
 import {
   ADD_RESTAURANT_SUCCESS,
   LIST_DETAILS_FETCHED,
-  COLLABORATOR_ADDED,
+  MARKED_VISITED,
 } from "./actions";
 
 const initialState = {
@@ -22,6 +22,30 @@ export default function reducer(state = initialState, action) {
         listDetails: {
           ...state.listDetails,
           restaurants: [...state.listDetails.restaurants, action.payload],
+        },
+      };
+
+    case MARKED_VISITED:
+      console.log("action in reducer", action.payload);
+      // const restaurantVisited = state.listDetails.restaurants.find((res) => {
+      //   return res.id === action.payload.restaurantId;
+      // });
+      // const getValue = restaurantVisited.listRest.visited;
+      return {
+        ...state,
+        listDetails: {
+          ...state.listDetails,
+          restaurants: state.listDetails.restaurants.map((res) =>
+            res.id === action.payload.restaurantId
+              ? {
+                  ...res,
+                  listRest: {
+                    ...res.listRest,
+                    visited: action.payload.visited,
+                  },
+                }
+              : res
+          ),
         },
       };
     default:
