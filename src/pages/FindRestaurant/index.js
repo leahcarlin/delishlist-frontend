@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchRestaurant } from "../../store/restaurant/actions";
 import { selectMyLists } from "../../store/user/selectors";
 import { selectSearch } from "../../store/restaurant/selectors";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./FindRestaurant.scss";
 import { addRestaurantToList } from "../../store/list/actions";
 import AddRestaurant from "../../components/AddRestaurant.js";
@@ -22,6 +22,7 @@ export default function FindRestaurant() {
   const [rating, setRating] = useState("");
   const search = useSelector(selectSearch);
   const lists = useSelector(selectMyLists);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchMyLists);
@@ -35,7 +36,15 @@ export default function FindRestaurant() {
 
   const addToMyList = (id) => {
     dispatch(
-      addRestaurantToList(id, name, photoReference, placeId, priceLevel, rating)
+      addRestaurantToList(
+        id,
+        name,
+        photoReference,
+        placeId,
+        priceLevel,
+        rating,
+        history
+      )
     );
     setName("");
     setPhotoReference("");

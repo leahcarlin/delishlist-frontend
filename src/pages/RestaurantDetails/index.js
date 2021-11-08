@@ -11,6 +11,9 @@ import { fetchMyLists } from "../../store/user/actions";
 import { addRestaurantToList } from "../../store/list/actions";
 import { useParams } from "react-router";
 import { apiKey } from "../../config/constants";
+import { useHistory } from "react-router-dom";
+import { markFavorite } from "../../store/user/actions";
+import MapContainer from "../../components/Map";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
@@ -18,6 +21,7 @@ export default function RestaurantDetails() {
   const lists = useSelector(selectMyLists);
   const [addToList, setAddToList] = useState(false);
   const { place_id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchMyLists);
@@ -28,6 +32,19 @@ export default function RestaurantDetails() {
     dispatch(
       addRestaurantToList(
         id,
+        restaurant.name,
+        restaurant.photos[0].photo_reference,
+        restaurant.place_id,
+        restaurant.price_level,
+        restaurant.rating,
+        history
+      )
+    );
+  };
+
+  const clickToFavorite = () => {
+    dispatch(
+      markFavorite(
         restaurant.name,
         restaurant.photos[0].photo_reference,
         restaurant.place_id,
@@ -65,7 +82,7 @@ export default function RestaurantDetails() {
         </a>
       </Row>
       <Row className="RestDetails-row-4">
-        <Col className="col-3">
+        <Col className="col-3" sm={6}>
           <button
             className="AddButton"
             onClick={() => setAddToList(!addToList)}
@@ -74,9 +91,11 @@ export default function RestaurantDetails() {
             <p>add to list</p>
           </button>
         </Col>
-        <Col className="col-3">
-          <p style={{ marginRight: "5px" }}>add to favorites</p>{" "}
-          <i class="bi-heart"></i>
+        <Col className="col-3" sm={6}>
+          <button onClick={clickToFavorite}>
+            <i class="bi-heart"></i>
+            <p>add to favorites</p>
+          </button>
         </Col>
       </Row>
       {!lists ? null : (
@@ -86,6 +105,11 @@ export default function RestaurantDetails() {
           ) : null}
         </Row>
       )}
+      <MapContainer
+        name={restaurant.name}
+        lat={restaurant.geometry.location.lat}
+        lng={restaurant.geometry.location.lng}
+      />
     </Container>
   );
 }

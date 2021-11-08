@@ -13,6 +13,11 @@ export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const MY_LISTS_FETCHED = "MY_LISTS_FETCHED";
 export const NEW_LIST_SUCCESS = "NEW_LIST_SUCCESS";
+<<<<<<< Updated upstream
+=======
+export const SEARCH_COMPLETE = "SEARCH_COMPLETE";
+export const FAVORITE_MARKED = "FAVORITE_MARKED";
+>>>>>>> Stashed changes
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -42,7 +47,25 @@ const newListSuccess = (data) => {
   };
 };
 
+<<<<<<< Updated upstream
 export const signUp = (name, email, password) => {
+=======
+const searchComplete = (data) => {
+  return {
+    type: SEARCH_COMPLETE,
+    payload: data,
+  };
+};
+
+const favoriteMarked = (data) => {
+  return {
+    type: FAVORITE_MARKED,
+    payload: data,
+  };
+};
+
+export const signUp = (firstName, lastName, email, password, profileImg) => {
+>>>>>>> Stashed changes
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
@@ -175,3 +198,61 @@ export const newList = (title) => async (dispatch, getState) => {
     }
   }
 };
+<<<<<<< Updated upstream
+=======
+
+// Search for a user
+export const searchUser = (name) => async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const res = await axios.post(`${apiUrl}/user/search`, {
+      name,
+    });
+    console.log("search data", res.data);
+    dispatch(searchComplete(res.data));
+    dispatch(appDoneLoading());
+  } catch (e) {
+    if (e.response) {
+      console.log("error:", e.response.data.message);
+      dispatch(setMessage("danger", true, e.response.data.message));
+    } else {
+      console.log("error:", e.message);
+      dispatch(setMessage("danger", true, e.message));
+    }
+  }
+};
+
+// Mark restaurant as a favorite and add to your favorites list
+export const markFavorite =
+  (name, photoReference, placeId, priceLevel, rating) =>
+  async (dispatch, getState) => {
+    dispatch(appLoading());
+    try {
+      const { token } = selectUser(getState());
+      const res = await axios.patch(
+        `${apiUrl}/restaurant/${placeId}/favorite`,
+        {
+          name,
+          placeId,
+          photoReference,
+          priceLevel,
+          rating,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("update?", res.data);
+      dispatch(favoriteMarked(res.data));
+      dispatch(appDoneLoading());
+    } catch (e) {
+      if (e.response) {
+        console.log("error:", e.response.data.message);
+        dispatch(setMessage("danger", true, e.response.data.message));
+      } else {
+        console.log("error:", e.message);
+        dispatch(setMessage("danger", true, e.message));
+      }
+    }
+  };
+>>>>>>> Stashed changes

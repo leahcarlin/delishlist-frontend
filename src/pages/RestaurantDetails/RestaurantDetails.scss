@@ -40,18 +40,15 @@
     align-items: center;
     text-align: center;
 
-    .AddButton {
-      background-color: white;
-      border: none;
-      display: flex;
-      margin: 20px 0 0 25px;
-    }
-
     .col-3 {
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 1em;
+      button {
+        background-color: white;
+        border: none;
+      }
     }
   }
 }

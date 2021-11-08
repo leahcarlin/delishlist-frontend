@@ -8,7 +8,7 @@ export default function HeaderTabs() {
       <Link className="link" to="/">
         <p>My Lists</p>
       </Link>
-      <Link className="link">
+      <Link className="link" to="/restaurant/favorites">
         <p>My Favorites</p>
       </Link>
       <Link className="link" to="/restaurant/find">

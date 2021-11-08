@@ -16,7 +16,13 @@ import MyLists from "./pages/MyLists";
 import ListDetails from "./pages/ListDetails";
 import RestaurantDetails from "./pages/RestaurantDetails";
 import FindRestaurant from "./pages/FindRestaurant";
+<<<<<<< Updated upstream
 import { selectToken } from "./store/user/selectors";
+=======
+import AddCollaborator from "./pages/AddCollaborator";
+import LandingPage from "./pages/LandingPage";
+import MyFavorites from "./pages/MyFavorites";
+>>>>>>> Stashed changes
 
 function App(props) {
   const dispatch = useDispatch();
@@ -36,6 +42,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={MyLists} />
         <Route path="/list/:id" component={ListDetails} />
+        <Route path="/restaurant/favorites" component={MyFavorites} />
         <Route path="/restaurant/find" component={FindRestaurant} />
         <Route path="/restaurant/:place_id" component={RestaurantDetails} />
         <Route path="/login" component={Login} />

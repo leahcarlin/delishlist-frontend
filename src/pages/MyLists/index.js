@@ -10,11 +10,10 @@ import UserProfile from "../../components/UserProfile";
 import { fetchMyLists } from "../../store/user/actions";
 import "./MyLists.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { newList } from "../../store/user/actions";
 import { Link } from "react-router-dom";
-import SignUp from "../Login";
 
 export default function MyLists() {
   const user = useSelector(selectUser);
