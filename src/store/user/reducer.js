@@ -5,6 +5,7 @@ import {
   MY_LISTS_FETCHED,
   NEW_LIST_SUCCESS,
   SEARCH_COMPLETE,
+  FAVORITES_FETCHED,
 } from "./actions";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   email: null,
   myLists: null,
   searchResults: null,
+  favorites: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -41,6 +43,14 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         searchResults: action.payload,
+      };
+    case FAVORITES_FETCHED:
+      console.log("action in reducer?", action.payload);
+      return {
+        ...state,
+        favorites: action.payload.restaurants.filter((res) => {
+          return res.userRests.favorite === true;
+        }),
       };
 
     default:

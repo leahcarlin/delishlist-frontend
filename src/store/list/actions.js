@@ -12,10 +12,8 @@ export const LIST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
 export const ADD_RESTAURANT_SUCCESS = "ADD_RESTAURANT_SUCCESS";
 export const COLLABORATOR_ADDED = "COLLABORATOR_ADDED";
 export const MARKED_VISITED = "MARKED_VISITED";
-export const FAVORITES_FETCHED = "FAVORITES_FETCHED";
 
 const listDetailsFetched = (data) => {
-  console.log("list details fetched action creator");
   return {
     type: LIST_DETAILS_FETCHED,
     payload: data,
@@ -23,7 +21,6 @@ const listDetailsFetched = (data) => {
 };
 
 const addRestaurantSuccess = (data) => {
-  console.log("list add restaurant action creator");
   return {
     type: ADD_RESTAURANT_SUCCESS,
     payload: data,
@@ -40,13 +37,6 @@ const collaboratorAdded = (data) => {
 const markVisitedSuccess = (data) => {
   return {
     type: MARKED_VISITED,
-    payload: data,
-  };
-};
-
-const favoritesFetched = (data) => {
-  return {
-    type: FAVORITES_FETCHED,
     payload: data,
   };
 };
@@ -144,18 +134,3 @@ export const markRestaurantVisited =
       }
     }
   };
-
-// get my favorite retaurants list
-export const getFavorites = async (dispatch, getState) => {
-  dispatch(appLoading());
-  try {
-    const { token } = selectUser(getState());
-    const res = await axios.get(`${apiUrl}/favorites`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    dispatch(favoritesFetched(res.data));
-    dispatch(appDoneLoading());
-  } catch (e) {
-    console.log(e.message);
-  }
-};

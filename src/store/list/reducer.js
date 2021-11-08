@@ -2,12 +2,10 @@ import {
   ADD_RESTAURANT_SUCCESS,
   LIST_DETAILS_FETCHED,
   MARKED_VISITED,
-  FAVORITES_FETCHED,
 } from "./actions";
 
 const initialState = {
   listDetails: null,
-  favorites: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -28,7 +26,7 @@ export default function reducer(state = initialState, action) {
       };
 
     case MARKED_VISITED:
-      console.log("action in reducer", action.payload);
+      // console.log("action in reducer", action.payload);
       return {
         ...state,
         listDetails: {
@@ -45,15 +43,6 @@ export default function reducer(state = initialState, action) {
               : res
           ),
         },
-      };
-
-    case FAVORITES_FETCHED:
-      console.log("action in reducer?", action.payload);
-      return {
-        ...state,
-        favorites: action.payload.restaurants.map((res) => {
-          return { ...res.userRests };
-        }),
       };
 
     default:

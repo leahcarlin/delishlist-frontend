@@ -3,7 +3,6 @@ import { Container, Row, Col, Dropdown, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getFavorites,
   fetchListDetails,
   markRestaurantVisited,
 } from "../../store/list/actions";
@@ -20,11 +19,11 @@ export default function ListDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const list = useSelector(selectListDetails);
+
   moment.locale("en-gb"); // european date format
 
   useEffect(() => {
     dispatch(fetchListDetails(id));
-    dispatch(getFavorites);
   }, [dispatch, id]);
 
   const clickVisited = (restaurantId) => {
@@ -81,7 +80,7 @@ export default function ListDetails() {
         <div className="RestaurantDetails" key={res.id}>
           <div className="col-1">
             <button onClick={() => clickVisited(res.id)}>
-              {res.listRest.visited === true ? (
+              {res?.listRest?.visited === true ? (
                 <i class="bi bi-check-circle"></i>
               ) : (
                 <i class="bi bi-circle"></i>
@@ -107,9 +106,6 @@ export default function ListDetails() {
             </Link>
             <p>{parseFloat(res.rating)}</p>
             {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
-          </div>
-          <div className="col-4" style={{ fontSize: "1em" }}>
-            <i class="bi bi-suit-heart"></i>
           </div>
         </div>
       ))}

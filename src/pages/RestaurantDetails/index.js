@@ -14,6 +14,7 @@ import { apiKey } from "../../config/constants";
 import { useHistory } from "react-router-dom";
 import { markFavorite } from "../../store/user/actions";
 import MapContainer from "../../components/Map";
+import { showEuros } from "../../config/constants";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
@@ -68,8 +69,10 @@ export default function RestaurantDetails() {
           <b>{restaurant.name}</b>
         </h3>
         <p>{restaurant.formatted_address}</p>
-        <p>{restaurant.rating}</p>
-        {restaurant.price_level ? <p>{restaurant.price_level}</p> : null}
+        <p>Rating: {restaurant.rating}</p>
+        {restaurant.price_level ? (
+          <p>{showEuros(restaurant.price_level)}</p>
+        ) : null}
       </Row>
       <Row className="RestDetails-row-2" style={{ marginBottom: "20px" }}>
         {restaurant?.opening_hours.weekday_text.map((day) => (
@@ -99,7 +102,7 @@ export default function RestaurantDetails() {
         </Col>
       </Row>
       {!lists ? null : (
-        <Row>
+        <Row style={{ marginBottom: "20px" }}>
           {addToList ? (
             <AddRestaurant lists={lists} addToMyList={addToMyList} />
           ) : null}

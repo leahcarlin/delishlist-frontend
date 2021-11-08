@@ -15,6 +15,7 @@ export const MY_LISTS_FETCHED = "MY_LISTS_FETCHED";
 export const NEW_LIST_SUCCESS = "NEW_LIST_SUCCESS";
 export const SEARCH_COMPLETE = "SEARCH_COMPLETE";
 export const FAVORITE_MARKED = "FAVORITE_MARKED";
+export const FAVORITES_FETCHED = "FAVORITES_FETCHED";
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -54,6 +55,13 @@ const searchComplete = (data) => {
 const favoriteMarked = (data) => {
   return {
     type: FAVORITE_MARKED,
+    payload: data,
+  };
+};
+
+const favoritesFetched = (data) => {
+  return {
+    type: FAVORITES_FETCHED,
     payload: data,
   };
 };
@@ -248,3 +256,18 @@ export const markFavorite =
       }
     }
   };
+
+// get my favorite retaurants list
+export const getFavorites = async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const { token } = selectUser(getState());
+    const res = await axios.get(`${apiUrl}/favorites`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch(favoritesFetched(res.data));
+    dispatch(appDoneLoading());
+  } catch (e) {
+    console.log(e.message);
+  }
+};
