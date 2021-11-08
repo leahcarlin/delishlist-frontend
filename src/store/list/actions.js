@@ -2,19 +2,17 @@ import {
   appLoading,
   appDoneLoading,
   showMessageWithTimeout,
+  setMessage,
 } from "../appState/actions";
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectListDetails } from "./selectors";
+import { selectUser } from "../user/selectors";
 
 export const LIST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
 export const ADD_RESTAURANT_SUCCESS = "ADD_RESTAURANT_SUCCESS";
-<<<<<<< Updated upstream
-=======
 export const COLLABORATOR_ADDED = "COLLABORATOR_ADDED";
 export const MARKED_VISITED = "MARKED_VISITED";
 export const FAVORITES_FETCHED = "FAVORITES_FETCHED";
->>>>>>> Stashed changes
 
 const listDetailsFetched = (data) => {
   console.log("list details fetched action creator");
@@ -32,8 +30,6 @@ const addRestaurantSuccess = (data) => {
   };
 };
 
-<<<<<<< Updated upstream
-=======
 const collaboratorAdded = (data) => {
   return {
     type: COLLABORATOR_ADDED,
@@ -55,7 +51,6 @@ const favoritesFetched = (data) => {
   };
 };
 
->>>>>>> Stashed changes
 // Get my a lists details
 export const fetchListDetails = (id) => async (dispatch, getState) => {
   dispatch(appLoading());
@@ -94,8 +89,6 @@ export const addRestaurantToList =
       console.log(e.message);
     }
   };
-<<<<<<< Updated upstream
-=======
 
 // Add a collaborator to my list
 export const AddCollaboratorToList =
@@ -166,4 +159,3 @@ export const getFavorites = async (dispatch, getState) => {
     console.log(e.message);
   }
 };
->>>>>>> Stashed changes

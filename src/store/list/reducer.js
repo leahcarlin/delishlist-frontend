@@ -1,13 +1,9 @@
-<<<<<<< Updated upstream
-import { ADD_RESTAURANT_SUCCESS, LIST_DETAILS_FETCHED } from "./actions";
-=======
 import {
   ADD_RESTAURANT_SUCCESS,
   LIST_DETAILS_FETCHED,
   MARKED_VISITED,
   FAVORITES_FETCHED,
 } from "./actions";
->>>>>>> Stashed changes
 
 const initialState = {
   listDetails: null,
@@ -31,9 +27,8 @@ export default function reducer(state = initialState, action) {
         },
       };
 
-<<<<<<< Updated upstream
-=======
     case MARKED_VISITED:
+      console.log("action in reducer", action.payload);
       return {
         ...state,
         listDetails: {
@@ -51,6 +46,7 @@ export default function reducer(state = initialState, action) {
           ),
         },
       };
+
     case FAVORITES_FETCHED:
       console.log("action in reducer?", action.payload);
       return {
@@ -60,7 +56,6 @@ export default function reducer(state = initialState, action) {
         }),
       };
 
->>>>>>> Stashed changes
     default:
       return state;
   }

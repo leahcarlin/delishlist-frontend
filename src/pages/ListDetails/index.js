@@ -2,22 +2,17 @@ import React, { useEffect } from "react";
 import { Container, Row, Col, Dropdown, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< Updated upstream
-import { fetchListDetails } from "../../store/list/actions";
-=======
 import {
-  fetchListDetails,
   getFavorites,
+  fetchListDetails,
   markRestaurantVisited,
 } from "../../store/list/actions";
->>>>>>> Stashed changes
 import { selectListDetails } from "../../store/list/selectors";
 import Loading from "../../components/Loading";
 import moment from "moment";
 import "moment/locale/en-gb";
 import "./ListDetails.scss";
 import { Link } from "react-router-dom";
-import { apiKey } from "../../config/constants";
 import { showEuros } from "../../config/constants";
 
 export default function ListDetails() {
@@ -31,13 +26,10 @@ export default function ListDetails() {
     dispatch(getFavorites);
   }, [dispatch, id]);
 
-<<<<<<< Updated upstream
-=======
   const clickVisited = (restaurantId) => {
     dispatch(markRestaurantVisited(id, restaurantId));
   };
 
->>>>>>> Stashed changes
   if (!list) return <Loading />;
 
   return (
@@ -75,15 +67,17 @@ export default function ListDetails() {
           </Dropdown>
         </Col>
         <Col style={{ display: "flex" }}>
-          <i class="bi bi-person-plus-fill"></i>
-          <p style={{ marginLeft: "10px" }}>add collaborator</p>
+          <Link
+            to={`/users/add/list/${list.id}`}
+            style={{ textDecoration: "none", color: "black", display: "flex" }}
+          >
+            <i class="bi bi-person-plus-fill"></i>
+            <p style={{ marginLeft: "10px" }}>add collaborator</p>
+          </Link>
         </Col>
       </Row>
       <Row className="RestaurantList">
         {list.restaurants.map((res) => (
-<<<<<<< Updated upstream
-          <Row className="RestaurantDetails">
-=======
           <Row className="RestaurantDetails" key={res.id}>
             <Col className="RestCheck" xs={1}>
               <button onClick={() => clickVisited(res.id)}>
@@ -94,7 +88,6 @@ export default function ListDetails() {
                 )}
               </button>
             </Col>
->>>>>>> Stashed changes
             <Col>
               <Link to={`/restaurant/${res.placeId}`}>
                 <Image
@@ -103,7 +96,7 @@ export default function ListDetails() {
                 />
               </Link>
             </Col>
-            <Col className="RestInfo">
+            <Col className="RestInfo" xs={5}>
               <Link
                 to={`/restaurant/${res.placeId}`}
                 style={{ textDecoration: "none", color: "black" }}
@@ -115,19 +108,8 @@ export default function ListDetails() {
               <p>{parseFloat(res.rating)}</p>
               {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
             </Col>
-<<<<<<< Updated upstream
-            <Col className="RestCheck">
-              <Form>
-                <Form.Check
-                  type="checkbox"
-                  aria-label="checkbox"
-                  id="checkbox"
-                />
-              </Form>
-=======
             <Col xs={1} style={{ fontSize: "1em" }}>
               <i class="bi bi-suit-heart"></i>
->>>>>>> Stashed changes
             </Col>
           </Row>
         ))}

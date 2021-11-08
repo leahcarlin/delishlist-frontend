@@ -1,3 +1,4 @@
+h1,
 h2,
 h3,
 h4,
@@ -8,6 +9,10 @@ label,
 input,
 form {
   font-family: "Baloo 2", cursive;
+}
+
+p {
+  margin-bottom: 0;
 }
 @media screen and (min-width: 768px) {
   /*Tablet styles here*/

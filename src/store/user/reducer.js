@@ -4,17 +4,14 @@ import {
   TOKEN_STILL_VALID,
   MY_LISTS_FETCHED,
   NEW_LIST_SUCCESS,
-<<<<<<< Updated upstream
-=======
   SEARCH_COMPLETE,
-  FAVORITE_MARKED,
->>>>>>> Stashed changes
 } from "./actions";
 
 const initialState = {
   token: localStorage.getItem("token"),
   email: null,
   myLists: null,
+  searchResults: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -40,21 +37,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         myLists: [...state.myLists, action.payload],
       };
-
-<<<<<<< Updated upstream
-=======
     case SEARCH_COMPLETE:
       return {
         ...state,
         searchResults: action.payload,
       };
-    // case FAVORITE_MARKED:
-    //   console.log("action in restaurant reducer", action.payload);
-    //   return {
-    //     ...state,
-    //   };
 
->>>>>>> Stashed changes
     default:
       return state;
   }

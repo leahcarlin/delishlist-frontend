@@ -13,11 +13,8 @@ export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const MY_LISTS_FETCHED = "MY_LISTS_FETCHED";
 export const NEW_LIST_SUCCESS = "NEW_LIST_SUCCESS";
-<<<<<<< Updated upstream
-=======
 export const SEARCH_COMPLETE = "SEARCH_COMPLETE";
 export const FAVORITE_MARKED = "FAVORITE_MARKED";
->>>>>>> Stashed changes
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -47,9 +44,6 @@ const newListSuccess = (data) => {
   };
 };
 
-<<<<<<< Updated upstream
-export const signUp = (name, email, password) => {
-=======
 const searchComplete = (data) => {
   return {
     type: SEARCH_COMPLETE,
@@ -65,14 +59,15 @@ const favoriteMarked = (data) => {
 };
 
 export const signUp = (firstName, lastName, email, password, profileImg) => {
->>>>>>> Stashed changes
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/signup`, {
-        name,
+        firstName,
+        lastName,
         email,
         password,
+        profileImg,
       });
 
       dispatch(loginSuccess(response.data));
@@ -198,8 +193,6 @@ export const newList = (title) => async (dispatch, getState) => {
     }
   }
 };
-<<<<<<< Updated upstream
-=======
 
 // Search for a user
 export const searchUser = (name) => async (dispatch, getState) => {
@@ -255,4 +248,3 @@ export const markFavorite =
       }
     }
   };
->>>>>>> Stashed changes
