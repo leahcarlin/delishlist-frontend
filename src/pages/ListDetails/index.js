@@ -14,6 +14,7 @@ import "moment/locale/en-gb";
 import "./ListDetails.scss";
 import { Link } from "react-router-dom";
 import { showEuros } from "../../config/constants";
+import { apiKey } from "../../config/constants";
 
 export default function ListDetails() {
   const { id } = useParams();
@@ -76,44 +77,42 @@ export default function ListDetails() {
           </Link>
         </Col>
       </Row>
-      <Row className="RestaurantList">
-        {list.restaurants.map((res) => (
-          <Row className="RestaurantDetails" key={res.id}>
-            <Col className="RestCheck" xs={1}>
-              <button onClick={() => clickVisited(res.id)}>
-                {res.listRest.visited === true ? (
-                  <i class="bi bi-check-circle"></i>
-                ) : (
-                  <i class="bi bi-circle"></i>
-                )}
-              </button>
-            </Col>
-            <Col>
-              <Link to={`/restaurant/${res.placeId}`}>
-                <Image
-                  style={{ borderRadius: "10px" }}
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
-                />
-              </Link>
-            </Col>
-            <Col className="RestInfo" xs={5}>
-              <Link
-                to={`/restaurant/${res.placeId}`}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <p>
-                  <b>{res.name}</b>
-                </p>
-              </Link>
-              <p>{parseFloat(res.rating)}</p>
-              {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
-            </Col>
-            <Col xs={1} style={{ fontSize: "1em" }}>
-              <i class="bi bi-suit-heart"></i>
-            </Col>
-          </Row>
-        ))}
-      </Row>
+      {list.restaurants.map((res) => (
+        <div className="RestaurantDetails" key={res.id}>
+          <div className="col-1">
+            <button onClick={() => clickVisited(res.id)}>
+              {res.listRest.visited === true ? (
+                <i class="bi bi-check-circle"></i>
+              ) : (
+                <i class="bi bi-circle"></i>
+              )}
+            </button>
+          </div>
+          <div className="col-2">
+            <Link to={`/restaurant/${res.placeId}`}>
+              <Image
+                style={{ borderRadius: "10px" }}
+                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
+              />
+            </Link>
+          </div>
+          <div className="col-3">
+            <Link
+              to={`/restaurant/${res.placeId}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <p>
+                <b>{res.name}</b>
+              </p>
+            </Link>
+            <p>{parseFloat(res.rating)}</p>
+            {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
+          </div>
+          <div className="col-4" style={{ fontSize: "1em" }}>
+            <i class="bi bi-suit-heart"></i>
+          </div>
+        </div>
+      ))}
       <Link
         className="link"
         to="/restaurant/find"
