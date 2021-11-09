@@ -1,3 +1,4 @@
+import { StaticRouter } from "react-router";
 import {
   LOG_OUT,
   LOGIN_SUCCESS,
@@ -6,6 +7,7 @@ import {
   NEW_LIST_SUCCESS,
   SEARCH_COMPLETE,
   FAVORITES_FETCHED,
+  FAVORITE_MARKED,
 } from "./actions";
 
 const initialState = {
@@ -45,13 +47,16 @@ export default function reducer(state = initialState, action) {
         searchResults: action.payload,
       };
     case FAVORITES_FETCHED:
-      console.log("action in reducer?", action.payload);
+      // console.log("action in reducer?", action.payload);
       return {
         ...state,
-        favorites: action.payload.restaurants.filter((res) => {
-          return res.userRests.favorite === true;
+        favorites: action.payload.restaurants.map((res) => {
+          return res;
         }),
       };
+
+    case FAVORITE_MARKED:
+      return { ...state, favorites: [...state.favorites, action.payload] };
 
     default:
       return state;

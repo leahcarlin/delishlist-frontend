@@ -41,7 +41,7 @@ const markVisitedSuccess = (data) => {
   };
 };
 
-// Get my a lists details
+// Get my lists details
 export const fetchListDetails = (id) => async (dispatch, getState) => {
   dispatch(appLoading());
   try {
@@ -60,14 +60,21 @@ export const addRestaurantToList =
   async (dispatch, getState) => {
     dispatch(appLoading());
     try {
+      const { token } = selectUser(getState());
       console.log("list id", id);
-      const res = await axios.post(`${apiUrl}/mylists/${id}`, {
-        name,
-        photoReference,
-        placeId,
-        priceLevel,
-        rating,
-      });
+      const res = await axios.post(
+        `${apiUrl}/mylists/${id}`,
+        {
+          name,
+          photoReference,
+          placeId,
+          priceLevel,
+          rating,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.log("new restaurant", res.data);
       dispatch(addRestaurantSuccess(res.data));
       dispatch(
@@ -122,7 +129,6 @@ export const markRestaurantVisited =
         restaurantId,
       });
       dispatch(markVisitedSuccess(res.data));
-      // history.push(`/list/${listId}`);
       dispatch(appDoneLoading());
     } catch (e) {
       if (e.response) {

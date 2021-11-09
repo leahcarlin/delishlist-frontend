@@ -14,16 +14,20 @@ import "./ListDetails.scss";
 import { Link } from "react-router-dom";
 import { showEuros } from "../../config/constants";
 import { apiKey } from "../../config/constants";
+import { getFavorites } from "../../store/user/actions";
+import { selectFavorites } from "../../store/user/selectors";
 
 export default function ListDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const list = useSelector(selectListDetails);
-
+  const favorites = useSelector(selectFavorites);
+  console.log("Fav??", favorites);
   moment.locale("en-gb"); // european date format
 
   useEffect(() => {
     dispatch(fetchListDetails(id));
+    dispatch(getFavorites);
   }, [dispatch, id]);
 
   const clickVisited = (restaurantId) => {
@@ -107,6 +111,7 @@ export default function ListDetails() {
             <p>{parseFloat(res.rating)}</p>
             {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
           </div>
+          {/* <div>{showFavorites(res.id)}</div> */}
         </div>
       ))}
       <Link

@@ -17,6 +17,10 @@ export default function MyFavorites() {
     dispatch(getFavorites);
   }, [dispatch]);
 
+  // const clickToRemove = (id) => {
+  //   dispatch(removeFavorite(id));
+  // };
+
   if (!favorites) return <Loading />;
 
   return (
@@ -24,34 +28,50 @@ export default function MyFavorites() {
       <Row>
         <h2>My Favorite Restaurants</h2>
       </Row>
-      {favorites.map((res) => (
-        <div
-          className="RestaurantDetails"
-          key={res.id}
-          style={{ display: "flex", justifyContent: "space-around" }}
-        >
-          <div className="col-2">
-            <Link to={`/restaurant/${res.placeId}`}>
-              <Image
-                style={{ borderRadius: "10px" }}
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
-              />
-            </Link>
+      {favorites.length === 0 ? (
+        <p>Your favorites list is empty!</p>
+      ) : (
+        favorites.map((res) => (
+          <div
+            className="RestaurantDetails"
+            key={res.id}
+            style={{ display: "flex", justifyContent: "space-around" }}
+          >
+            <div className="col-2">
+              <Link to={`/restaurant/${res.placeId}`}>
+                <Image
+                  style={{ borderRadius: "10px" }}
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
+                />
+              </Link>
+            </div>
+            <div className="col-3">
+              <Link
+                to={`/restaurant/${res.placeId}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <p>
+                  <b>{res.name}</b>
+                </p>
+              </Link>
+              <p>Rating: {parseFloat(res.rating)}</p>
+              {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
+            </div>
+            <div>
+              <button
+                // onClick={clickToRemove(res.id)}
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  fontSize: ".75em",
+                }}
+              >
+                Remove
+              </button>
+            </div>
           </div>
-          <div className="col-3">
-            <Link
-              to={`/restaurant/${res.placeId}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <p>
-                <b>{res.name}</b>
-              </p>
-            </Link>
-            <p>Rating: {parseFloat(res.rating)}</p>
-            {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
-          </div>
-        </div>
-      ))}
+        ))
+      )}
     </Container>
   );
 }

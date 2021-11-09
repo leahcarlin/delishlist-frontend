@@ -7,7 +7,7 @@ import { selectMyLists } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import "./RestaurantDetails.scss";
 import AddRestaurant from "../../components/AddRestaurant.js";
-import { fetchMyLists } from "../../store/user/actions";
+import { fetchMyLists, getFavorites } from "../../store/user/actions";
 import { addRestaurantToList } from "../../store/list/actions";
 import { useParams } from "react-router";
 import { apiKey } from "../../config/constants";
@@ -15,11 +15,13 @@ import { useHistory } from "react-router-dom";
 import { markFavorite } from "../../store/user/actions";
 import MapContainer from "../../components/Map";
 import { showEuros } from "../../config/constants";
+import { selectFavorites } from "../../store/user/selectors";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
   const restaurant = useSelector(selectRestaurantDetails);
   const lists = useSelector(selectMyLists);
+  const favorites = useSelector(selectFavorites);
   const [addToList, setAddToList] = useState(false);
   const { place_id } = useParams();
   const history = useHistory();
@@ -27,6 +29,7 @@ export default function RestaurantDetails() {
   useEffect(() => {
     dispatch(fetchMyLists);
     dispatch(fetchRestaurantDetails(place_id));
+    dispatch(getFavorites);
   }, [dispatch, place_id]);
 
   const addToMyList = (id) => {
@@ -44,15 +47,7 @@ export default function RestaurantDetails() {
   };
 
   const clickToFavorite = () => {
-    dispatch(
-      markFavorite(
-        restaurant.name,
-        restaurant.photos[0].photo_reference,
-        restaurant.place_id,
-        restaurant.price_level,
-        restaurant.rating
-      )
-    );
+    dispatch(markFavorite(restaurant.place_id, history));
   };
 
   if (!restaurant) return <Loading />;
