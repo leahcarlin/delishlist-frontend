@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Form, Dropdown, Image } from "react-bootstrap";
+import { Container, Row, Col, Dropdown, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,19 +12,25 @@ import moment from "moment";
 import "moment/locale/en-gb";
 import "./ListDetails.scss";
 import { Link } from "react-router-dom";
+import { showEuros } from "../../config/constants";
 import { apiKey } from "../../config/constants";
+import { getFavorites } from "../../store/user/actions";
+import { selectFavorites } from "../../store/user/selectors";
 
 export default function ListDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const list = useSelector(selectListDetails);
+  const favorites = useSelector(selectFavorites);
+  console.log("Fav??", favorites);
   moment.locale("en-gb"); // european date format
 
   useEffect(() => {
     dispatch(fetchListDetails(id));
+    dispatch(getFavorites);
   }, [dispatch, id]);
 
-  const clickCheckbox = (restaurantId) => {
+  const clickVisited = (restaurantId) => {
     dispatch(markRestaurantVisited(id, restaurantId));
   };
 
@@ -74,41 +80,40 @@ export default function ListDetails() {
           </Link>
         </Col>
       </Row>
-      <Row className="RestaurantList">
-        {list.restaurants.map((res) => (
-          <Row className="RestaurantDetails" key={res.id}>
-            <Col>
-              <Link to={`/restaurant/${res.placeId}`}>
-                <Image
-                  style={{ borderRadius: "10px" }}
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
-                />
-              </Link>
-            </Col>
-            <Col className="RestInfo" xs={5}>
-              <Link
-                to={`/restaurant/${res.placeId}`}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <p>
-                  <b>{res.name}</b>
-                </p>
-              </Link>
-              <p>{parseFloat(res.rating)}</p>
-              {res.priceLevel ? <p>{res.priceLevel}</p> : null}
-            </Col>
-            <Col className="RestCheck">
-              <button onClick={() => clickCheckbox(res.id)}>
-                {res.listRest.visited === true ? (
-                  <i class="bi bi-check-circle"></i>
-                ) : (
-                  <i class="bi bi-circle"></i>
-                )}
-              </button>
-            </Col>
-          </Row>
-        ))}
-      </Row>
+      {list.restaurants.map((res) => (
+        <div className="RestaurantDetails" key={res.id}>
+          <div className="col-1">
+            <button onClick={() => clickVisited(res.id)}>
+              {res?.listRest?.visited === true ? (
+                <i class="bi bi-check-circle"></i>
+              ) : (
+                <i class="bi bi-circle"></i>
+              )}
+            </button>
+          </div>
+          <div className="col-2">
+            <Link to={`/restaurant/${res.placeId}`}>
+              <Image
+                style={{ borderRadius: "10px" }}
+                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
+              />
+            </Link>
+          </div>
+          <div className="col-3">
+            <Link
+              to={`/restaurant/${res.placeId}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <p>
+                <b>{res.name}</b>
+              </p>
+            </Link>
+            <p>{parseFloat(res.rating)}</p>
+            {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
+          </div>
+          {/* <div>{showFavorites(res.id)}</div> */}
+        </div>
+      ))}
       <Link
         className="link"
         to="/restaurant/find"
@@ -122,11 +127,3 @@ export default function ListDetails() {
     </Container>
   );
 }
-
-// <Form>
-//   <Form.Check
-//     type="checkbox"
-//     aria-label="checkbox"
-//     onChange={() => clickCheckbox(res.id)}
-//   />
-// </Form>

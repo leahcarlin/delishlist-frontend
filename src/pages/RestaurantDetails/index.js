@@ -7,21 +7,29 @@ import { selectMyLists } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import "./RestaurantDetails.scss";
 import AddRestaurant from "../../components/AddRestaurant.js";
-import { fetchMyLists } from "../../store/user/actions";
+import { fetchMyLists, getFavorites } from "../../store/user/actions";
 import { addRestaurantToList } from "../../store/list/actions";
 import { useParams } from "react-router";
 import { apiKey } from "../../config/constants";
+import { useHistory } from "react-router-dom";
+import { markFavorite } from "../../store/user/actions";
+import MapContainer from "../../components/Map";
+import { showEuros } from "../../config/constants";
+import { selectFavorites } from "../../store/user/selectors";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
   const restaurant = useSelector(selectRestaurantDetails);
   const lists = useSelector(selectMyLists);
+  const favorites = useSelector(selectFavorites);
   const [addToList, setAddToList] = useState(false);
   const { place_id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchMyLists);
     dispatch(fetchRestaurantDetails(place_id));
+    dispatch(getFavorites);
   }, [dispatch, place_id]);
 
   const addToMyList = (id) => {
@@ -32,9 +40,14 @@ export default function RestaurantDetails() {
         restaurant.photos[0].photo_reference,
         restaurant.place_id,
         restaurant.price_level,
-        restaurant.rating
+        restaurant.rating,
+        history
       )
     );
+  };
+
+  const clickToFavorite = () => {
+    dispatch(markFavorite(restaurant.place_id, history));
   };
 
   if (!restaurant) return <Loading />;
@@ -51,8 +64,10 @@ export default function RestaurantDetails() {
           <b>{restaurant.name}</b>
         </h3>
         <p>{restaurant.formatted_address}</p>
-        <p>{restaurant.rating}</p>
-        {restaurant.price_level ? <p>{restaurant.price_level}</p> : null}
+        <p>Rating: {restaurant.rating}</p>
+        {restaurant.price_level ? (
+          <p>{showEuros(restaurant.price_level)}</p>
+        ) : null}
       </Row>
       <Row className="RestDetails-row-2" style={{ marginBottom: "20px" }}>
         {restaurant?.opening_hours.weekday_text.map((day) => (
@@ -65,7 +80,7 @@ export default function RestaurantDetails() {
         </a>
       </Row>
       <Row className="RestDetails-row-4">
-        <Col className="col-3">
+        <Col className="col-3" sm={6}>
           <button
             className="AddButton"
             onClick={() => setAddToList(!addToList)}
@@ -74,18 +89,25 @@ export default function RestaurantDetails() {
             <p>add to list</p>
           </button>
         </Col>
-        <Col className="col-3">
-          <p style={{ marginRight: "5px" }}>add to favorites</p>{" "}
-          <i class="bi-heart"></i>
+        <Col className="col-3" sm={6}>
+          <button onClick={clickToFavorite}>
+            <i class="bi-heart"></i>
+            <p>add to favorites</p>
+          </button>
         </Col>
       </Row>
       {!lists ? null : (
-        <Row>
+        <Row style={{ marginBottom: "20px" }}>
           {addToList ? (
             <AddRestaurant lists={lists} addToMyList={addToMyList} />
           ) : null}
         </Row>
       )}
+      <MapContainer
+        name={restaurant.name}
+        lat={restaurant.geometry.location.lat}
+        lng={restaurant.geometry.location.lng}
+      />
     </Container>
   );
 }

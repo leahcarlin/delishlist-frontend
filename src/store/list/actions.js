@@ -14,7 +14,6 @@ export const COLLABORATOR_ADDED = "COLLABORATOR_ADDED";
 export const MARKED_VISITED = "MARKED_VISITED";
 
 const listDetailsFetched = (data) => {
-  console.log("list details fetched action creator");
   return {
     type: LIST_DETAILS_FETCHED,
     payload: data,
@@ -22,7 +21,6 @@ const listDetailsFetched = (data) => {
 };
 
 const addRestaurantSuccess = (data) => {
-  console.log("list add restaurant action creator");
   return {
     type: ADD_RESTAURANT_SUCCESS,
     payload: data,
@@ -43,7 +41,7 @@ const markVisitedSuccess = (data) => {
   };
 };
 
-// Get my a lists details
+// Get my lists details
 export const fetchListDetails = (id) => async (dispatch, getState) => {
   dispatch(appLoading());
   try {
@@ -58,24 +56,32 @@ export const fetchListDetails = (id) => async (dispatch, getState) => {
 
 //Add a restaurant to a list
 export const addRestaurantToList =
-  (id, name, photoReference, placeId, priceLevel, rating) =>
+  (id, name, photoReference, placeId, priceLevel, rating, history) =>
   async (dispatch, getState) => {
     dispatch(appLoading());
     try {
+      const { token } = selectUser(getState());
       console.log("list id", id);
-      const res = await axios.post(`${apiUrl}/mylists/${id}`, {
-        name,
-        photoReference,
-        placeId,
-        priceLevel,
-        rating,
-      });
-      console.log("new res", res.data);
+      const res = await axios.post(
+        `${apiUrl}/mylists/${id}`,
+        {
+          name,
+          photoReference,
+          placeId,
+          priceLevel,
+          rating,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("new restaurant", res.data);
       dispatch(addRestaurantSuccess(res.data));
       dispatch(
         showMessageWithTimeout("success", true, "Restaurant added!", 1500)
       );
       dispatch(appDoneLoading);
+      history.push(`/list/${id}`);
     } catch (e) {
       console.log(e.message);
     }
@@ -123,7 +129,6 @@ export const markRestaurantVisited =
         restaurantId,
       });
       dispatch(markVisitedSuccess(res.data));
-      // history.push(`/list/${listId}`);
       dispatch(appDoneLoading());
     } catch (e) {
       if (e.response) {

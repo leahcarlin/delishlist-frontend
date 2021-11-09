@@ -26,11 +26,7 @@ export default function reducer(state = initialState, action) {
       };
 
     case MARKED_VISITED:
-      console.log("action in reducer", action.payload);
-      // const restaurantVisited = state.listDetails.restaurants.find((res) => {
-      //   return res.id === action.payload.restaurantId;
-      // });
-      // const getValue = restaurantVisited.listRest.visited;
+      // console.log("action in reducer", action.payload);
       return {
         ...state,
         listDetails: {
@@ -48,6 +44,7 @@ export default function reducer(state = initialState, action) {
           ),
         },
       };
+
     default:
       return state;
   }

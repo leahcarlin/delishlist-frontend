@@ -7,6 +7,7 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from "../appState/actions";
+import { Next } from "react-bootstrap/esm/PageItem";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
@@ -14,6 +15,9 @@ export const LOG_OUT = "LOG_OUT";
 export const MY_LISTS_FETCHED = "MY_LISTS_FETCHED";
 export const NEW_LIST_SUCCESS = "NEW_LIST_SUCCESS";
 export const SEARCH_COMPLETE = "SEARCH_COMPLETE";
+export const FAVORITE_MARKED = "FAVORITE_MARKED";
+export const FAVORITES_FETCHED = "FAVORITES_FETCHED";
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
 
 const loginSuccess = (userWithToken) => {
   return {
@@ -47,6 +51,27 @@ const searchComplete = (data) => {
   return {
     type: SEARCH_COMPLETE,
     payload: data,
+  };
+};
+
+const favoriteMarked = (data) => {
+  return {
+    type: FAVORITE_MARKED,
+    payload: data,
+  };
+};
+
+const favoritesFetched = (data) => {
+  return {
+    type: FAVORITES_FETCHED,
+    payload: data,
+  };
+};
+
+const deleteSuccess = (id) => {
+  return {
+    type: DELETE_SUCCESS,
+    payload: id,
   };
 };
 
@@ -195,6 +220,75 @@ export const searchUser = (name) => async (dispatch, getState) => {
     });
     console.log("search data", res.data);
     dispatch(searchComplete(res.data));
+    dispatch(appDoneLoading());
+  } catch (e) {
+    if (e.response) {
+      console.log("error:", e.response.data.message);
+      dispatch(setMessage("danger", true, e.response.data.message));
+    } else {
+      console.log("error:", e.message);
+      dispatch(setMessage("danger", true, e.message));
+    }
+  }
+};
+
+// get my favorite retaurants list
+export const getFavorites = async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const { token } = selectUser(getState());
+    const res = await axios.get(`${apiUrl}/favorites`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch(favoritesFetched(res.data));
+    dispatch(appDoneLoading());
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+// Mark restaurant as a favorite and add to your favorites list
+export const markFavorite =
+  (placeId, history) => async (dispatch, getState) => {
+    dispatch(appLoading());
+    try {
+      const { id } = selectUser(getState());
+      const res = await axios.post(`${apiUrl}/restaurant/${placeId}/favorite`, {
+        userId: id,
+      });
+      dispatch(favoriteMarked(res.data));
+      history.push(`/restaurant/favorites`);
+      dispatch(appDoneLoading());
+    } catch (e) {
+      if (e.response) {
+        console.log("error:", e.response.data.message);
+        dispatch(
+          showMessageWithTimeout("danger", true, e.response.data.message, 1500)
+        );
+        history.push(`/restaurant/favorites`);
+        dispatch(appDoneLoading());
+      } else {
+        console.log("error:", e.message);
+        dispatch(showMessageWithTimeout("danger", true, e.message, 1500));
+        history.push(`/restaurant/${placeId}`);
+        dispatch(appDoneLoading());
+      }
+    }
+  };
+
+// Remove restaurant from my favorites list
+export const removeFavorite = (restaurantId) => async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const { token } = selectUser(getState());
+    const res = await axios.delete(
+      `${apiUrl}/restaurant/${restaurantId}/remove`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("fav deleted?", res.data);
+    dispatch(deleteSuccess(restaurantId));
     dispatch(appDoneLoading());
   } catch (e) {
     if (e.response) {

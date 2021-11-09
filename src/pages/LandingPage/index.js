@@ -12,6 +12,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (token) history.push("/home");
+    else history.push("/");
   }, [token, history]);
 
   return (

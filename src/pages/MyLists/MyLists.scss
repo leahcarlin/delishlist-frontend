@@ -6,7 +6,7 @@
   margin: 10px;
   font-family: "Baloo 2", cursive;
 
-  li {
+  .List {
     list-style-type: none;
     margin: 10px;
     display: flex;
@@ -30,7 +30,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-end;
 
       p {
         margin-top: 5px;

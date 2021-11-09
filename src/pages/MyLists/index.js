@@ -9,12 +9,9 @@ import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
 import { fetchMyLists } from "../../store/user/actions";
 import "./MyLists.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { newList } from "../../store/user/actions";
 import { Link } from "react-router-dom";
-import SignUp from "../Login";
 
 export default function MyLists() {
   const user = useSelector(selectUser);
@@ -53,15 +50,20 @@ export default function MyLists() {
           <b>My Lists</b>
         </h3>
         {lists.map((list) => (
-          <li>
+          <div className="List">
             <Link to={`/list/${list.id}`} style={{ textDecoration: "none" }}>
               <Col className="ListName">{list.title}</Col>
             </Link>
             <Col className="ListDetails">
-              <FontAwesomeIcon icon={faUserFriends} />
-              <p>{printCollabs(list.users)}</p>
+              <Row>
+                <i
+                  class="bi bi-people-fill"
+                  style={{ textAlign: "center" }}
+                ></i>
+                {list.users ? <p>{printCollabs(list?.users)}</p> : null}
+              </Row>
             </Col>
-          </li>
+          </div>
         ))}
       </Row>
       <div className="AddList">
