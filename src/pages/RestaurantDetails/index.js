@@ -5,6 +5,7 @@ import { fetchRestaurantDetails } from "../../store/restaurant/actions";
 import { selectRestaurantDetails } from "../../store/restaurant/selectors";
 import {
   selectFavoritePlaceIds,
+  selectFavorites,
   selectMyLists,
 } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
@@ -23,7 +24,9 @@ export default function RestaurantDetails() {
   const dispatch = useDispatch();
   const restaurant = useSelector(selectRestaurantDetails);
   const lists = useSelector(selectMyLists);
+  const favorites = useSelector(selectFavorites);
   const favPlaceIds = useSelector(selectFavoritePlaceIds);
+  console.log("place ids?", favPlaceIds);
   const [addToList, setAddToList] = useState(false);
   const { place_id } = useParams();
   const history = useHistory();
@@ -68,17 +71,12 @@ export default function RestaurantDetails() {
         ) : null}
       </Row>
       <Row className="RestDetails-row-2" style={{ marginBottom: "20px" }}>
-        {restaurant?.opening_hours.weekday_text.map((day) => (
-          <p style={{ margin: "0" }}>{day}</p>
-        ))}
-      </Row>
-      <Row className="RestDetails-row-3">
-        <a target="_blank" rel="noreferrer" href={restaurant.website}>
-          Visit Website
-        </a>
-      </Row>
-      <Row className="RestDetails-row-4">
-        <Col className="col-3" sm={6}>
+        <Col className="col1">
+          {restaurant?.opening_hours.weekday_text.map((day) => (
+            <p style={{ margin: "0" }}>{day}</p>
+          ))}
+        </Col>
+        <Col className="col2" xs={4}>
           <button
             className="AddButton"
             onClick={() => setAddToList(!addToList)}
@@ -86,34 +84,6 @@ export default function RestaurantDetails() {
             <i class="bi bi-list-task"></i>
             <p>add to list</p>
           </button>
-        </Col>
-        <Col className="col-3" sm={6}>
-          {favPlaceIds.includes(restaurant.place_id) ? (
-            <button
-              onClick={() => dispatch(removeFavorite(favPlaceIds.id))}
-              style={{
-                border: "none",
-              }}
-            >
-              <i
-                class="bi bi-suit-heart-fill"
-                style={{
-                  color: "#d62828",
-                }}
-              ></i>
-            </button>
-          ) : (
-            <button
-              onClick={() =>
-                dispatch(markFavorite(restaurant.place_id, history))
-              }
-              style={{
-                border: "none",
-              }}
-            >
-              <i class="bi bi-suit-heart"></i>
-            </button>
-          )}
         </Col>
       </Row>
       {!lists ? null : (
@@ -123,6 +93,11 @@ export default function RestaurantDetails() {
           ) : null}
         </Row>
       )}
+      <Row className="RestDetails-row-3">
+        <a target="_blank" rel="noreferrer" href={restaurant.website}>
+          Visit Website
+        </a>
+      </Row>
       <MapContainer
         name={restaurant.name}
         lat={restaurant.geometry.location.lat}

@@ -256,7 +256,6 @@ export const markFavorite =
         userId: id,
       });
       dispatch(favoriteMarked(res.data));
-      history.push(`/restaurant/favorites`);
       dispatch(appDoneLoading());
     } catch (e) {
       if (e.response) {

@@ -90,14 +90,14 @@ export default function ListDetails() {
           className="RestaurantDetails"
           key={res.id}
           style={{
-            backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+            backgroundColor: res?.listRest?.visited ? "#A9A9A9" : "white",
           }}
         >
           <div className="col-1">
             <button
               onClick={() => clickVisited(res.id)}
               style={{
-                backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+                backgroundColor: res?.listRest?.visited ? "#A9A9A9" : "white",
               }}
             >
               {res?.listRest?.visited === true ? (
@@ -133,7 +133,7 @@ export default function ListDetails() {
                 onClick={() => dispatch(removeFavorite(res.id))}
                 style={{
                   border: "none",
-                  backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+                  backgroundColor: res?.listRest?.visited ? "#A9A9A9" : "white",
                 }}
               >
                 <i
@@ -148,7 +148,7 @@ export default function ListDetails() {
                 onClick={() => dispatch(markFavorite(res.placeId, history))}
                 style={{
                   border: "none",
-                  backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+                  backgroundColor: res?.listRest?.visited ? "#A9A9A9" : "white",
                 }}
               >
                 <i class="bi bi-suit-heart"></i>
