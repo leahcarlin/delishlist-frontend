@@ -3,7 +3,10 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantDetails } from "../../store/restaurant/actions";
 import { selectRestaurantDetails } from "../../store/restaurant/selectors";
-import { selectMyLists } from "../../store/user/selectors";
+import {
+  selectFavoritePlaceIds,
+  selectMyLists,
+} from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import "./RestaurantDetails.scss";
 import AddRestaurant from "../../components/AddRestaurant.js";
@@ -12,16 +15,15 @@ import { addRestaurantToList } from "../../store/list/actions";
 import { useParams } from "react-router";
 import { apiKey } from "../../config/constants";
 import { useHistory } from "react-router-dom";
-import { markFavorite } from "../../store/user/actions";
+import { markFavorite, removeFavorite } from "../../store/user/actions";
 import MapContainer from "../../components/Map";
 import { showEuros } from "../../config/constants";
-import { selectFavorites } from "../../store/user/selectors";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
   const restaurant = useSelector(selectRestaurantDetails);
   const lists = useSelector(selectMyLists);
-  const favorites = useSelector(selectFavorites);
+  const favPlaceIds = useSelector(selectFavoritePlaceIds);
   const [addToList, setAddToList] = useState(false);
   const { place_id } = useParams();
   const history = useHistory();
@@ -44,10 +46,6 @@ export default function RestaurantDetails() {
         history
       )
     );
-  };
-
-  const clickToFavorite = () => {
-    dispatch(markFavorite(restaurant.place_id, history));
   };
 
   if (!restaurant) return <Loading />;
@@ -90,10 +88,32 @@ export default function RestaurantDetails() {
           </button>
         </Col>
         <Col className="col-3" sm={6}>
-          <button onClick={clickToFavorite}>
-            <i class="bi-heart"></i>
-            <p>add to favorites</p>
-          </button>
+          {favPlaceIds.includes(restaurant.place_id) ? (
+            <button
+              onClick={() => dispatch(removeFavorite(favPlaceIds.id))}
+              style={{
+                border: "none",
+              }}
+            >
+              <i
+                class="bi bi-suit-heart-fill"
+                style={{
+                  color: "#d62828",
+                }}
+              ></i>
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                dispatch(markFavorite(restaurant.place_id, history))
+              }
+              style={{
+                border: "none",
+              }}
+            >
+              <i class="bi bi-suit-heart"></i>
+            </button>
+          )}
         </Col>
       </Row>
       {!lists ? null : (

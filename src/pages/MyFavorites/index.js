@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Container, Image, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getFavorites } from "../../store/user/actions";
+import { getFavorites, removeFavorite } from "../../store/user/actions";
 import { selectFavorites } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import { Link } from "react-router-dom";
@@ -17,16 +17,20 @@ export default function MyFavorites() {
     dispatch(getFavorites);
   }, [dispatch]);
 
-  // const clickToRemove = (id) => {
-  //   dispatch(removeFavorite(id));
-  // };
+  const clickToRemove = (id) => {
+    dispatch(removeFavorite(id));
+  };
+
+  
 
   if (!favorites) return <Loading />;
 
   return (
     <Container style={{ marginTop: "20px" }}>
       <Row>
-        <h2>My Favorite Restaurants</h2>
+        <h2>
+          <b>My Favorite Restaurants</b>
+        </h2>
       </Row>
       {favorites.length === 0 ? (
         <p>Your favorites list is empty!</p>
@@ -59,7 +63,7 @@ export default function MyFavorites() {
             </div>
             <div>
               <button
-                // onClick={clickToRemove(res.id)}
+                onClick={() => clickToRemove(res.id)}
                 style={{
                   backgroundColor: "white",
                   borderRadius: "10px",

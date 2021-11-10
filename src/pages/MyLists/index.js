@@ -32,10 +32,10 @@ export default function MyLists() {
   };
   const printCollabs = (users) => {
     let numCollabs = "";
-    if (users.length === 1) {
+    if (users?.length === 1) {
       numCollabs = "personal list";
     } else {
-      numCollabs = `${users.length} collaborators`;
+      numCollabs = `${users?.length} collaborators`;
     }
     return numCollabs;
   };
@@ -49,22 +49,26 @@ export default function MyLists() {
         <h3>
           <b>My Lists</b>
         </h3>
-        {lists.map((list) => (
-          <div className="List">
-            <Link to={`/list/${list.id}`} style={{ textDecoration: "none" }}>
-              <Col className="ListName">{list.title}</Col>
-            </Link>
-            <Col className="ListDetails">
-              <Row>
-                <i
-                  class="bi bi-people-fill"
-                  style={{ textAlign: "center" }}
-                ></i>
-                {list.users ? <p>{printCollabs(list?.users)}</p> : null}
-              </Row>
-            </Col>
-          </div>
-        ))}
+        {lists.length === 0 ? (
+          <p>You don't have any lists yet!</p>
+        ) : (
+          lists.map((list) => (
+            <div className="List">
+              <Link to={`/list/${list.id}`} style={{ textDecoration: "none" }}>
+                <Col className="ListName">{list.title}</Col>
+              </Link>
+              <Col className="ListDetails">
+                <Row>
+                  <i
+                    class="bi bi-people-fill"
+                    style={{ textAlign: "center" }}
+                  ></i>
+                  {list.users ? <p>{printCollabs(list?.users)}</p> : null}
+                </Row>
+              </Col>
+            </div>
+          ))
+        )}
       </Row>
       <div className="AddList">
         <button className="AddButton" onClick={() => setAddList(!addList)}>

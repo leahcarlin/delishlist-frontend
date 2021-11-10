@@ -7,7 +7,6 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from "../appState/actions";
-import { Next } from "react-bootstrap/esm/PageItem";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
@@ -265,7 +264,7 @@ export const markFavorite =
         dispatch(
           showMessageWithTimeout("danger", true, e.response.data.message, 1500)
         );
-        history.push(`/restaurant/favorites`);
+        history.push(`/restaurant/${placeId}`);
         dispatch(appDoneLoading());
       } else {
         console.log("error:", e.message);
