@@ -14,10 +14,16 @@ form {
 p {
   margin-bottom: 0;
 }
+
+/*Tablet styles here*/
 @media screen and (min-width: 768px) {
-  /*Tablet styles here*/
 }
 
+/*Desktop styles here*/
 @media screen and (min-width: 1200px) {
-  /*Desktop styles here*/
+  .App {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+  }
 }

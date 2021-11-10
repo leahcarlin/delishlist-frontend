@@ -80,7 +80,7 @@ export const addRestaurantToList =
       dispatch(
         showMessageWithTimeout("success", true, "Restaurant added!", 1500)
       );
-      dispatch(appDoneLoading);
+      dispatch(appDoneLoading());
       history.push(`/list/${id}`);
     } catch (e) {
       console.log(e.message);

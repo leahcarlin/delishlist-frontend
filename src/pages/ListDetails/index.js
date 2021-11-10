@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Container, Row, Col, Dropdown, Image } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchListDetails,
@@ -14,16 +14,21 @@ import "./ListDetails.scss";
 import { Link } from "react-router-dom";
 import { showEuros } from "../../config/constants";
 import { apiKey } from "../../config/constants";
-import { getFavorites } from "../../store/user/actions";
-import { selectFavorites } from "../../store/user/selectors";
+import {
+  getFavorites,
+  markFavorite,
+  removeFavorite,
+} from "../../store/user/actions";
+import { selectFavoriteIds } from "../../store/user/selectors";
 
 export default function ListDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const list = useSelector(selectListDetails);
-  const favorites = useSelector(selectFavorites);
-  console.log("Fav??", favorites);
+  const favIds = useSelector(selectFavoriteIds);
+  console.log("Fav ids??", favIds);
   moment.locale("en-gb"); // european date format
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchListDetails(id));
@@ -34,7 +39,7 @@ export default function ListDetails() {
     dispatch(markRestaurantVisited(id, restaurantId));
   };
 
-  if (!list) return <Loading />;
+  if (!list || !favIds) return <Loading />;
 
   return (
     <Container fluid>
@@ -81,9 +86,20 @@ export default function ListDetails() {
         </Col>
       </Row>
       {list.restaurants.map((res) => (
-        <div className="RestaurantDetails" key={res.id}>
+        <div
+          className="RestaurantDetails"
+          key={res.id}
+          style={{
+            backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+          }}
+        >
           <div className="col-1">
-            <button onClick={() => clickVisited(res.id)}>
+            <button
+              onClick={() => clickVisited(res.id)}
+              style={{
+                backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+              }}
+            >
               {res?.listRest?.visited === true ? (
                 <i class="bi bi-check-circle"></i>
               ) : (
@@ -108,10 +124,37 @@ export default function ListDetails() {
                 <b>{res.name}</b>
               </p>
             </Link>
-            <p>{parseFloat(res.rating)}</p>
+            <p>Rating: {parseFloat(res.rating)}</p>
             {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
           </div>
-          {/* <div>{showFavorites(res.id)}</div> */}
+          <div>
+            {favIds.includes(res.id) ? (
+              <button
+                onClick={() => dispatch(removeFavorite(res.id))}
+                style={{
+                  border: "none",
+                  backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+                }}
+              >
+                <i
+                  class="bi bi-suit-heart-fill"
+                  style={{
+                    color: "#d62828",
+                  }}
+                ></i>
+              </button>
+            ) : (
+              <button
+                onClick={() => dispatch(markFavorite(res.placeId, history))}
+                style={{
+                  border: "none",
+                  backgroundColor: res.listRest.visited ? "#A9A9A9" : "white",
+                }}
+              >
+                <i class="bi bi-suit-heart"></i>
+              </button>
+            )}
+          </div>
         </div>
       ))}
       <Link

@@ -8,6 +8,7 @@ import {
   SEARCH_COMPLETE,
   FAVORITES_FETCHED,
   FAVORITE_MARKED,
+  DELETE_SUCCESS,
 } from "./actions";
 
 const initialState = {
@@ -58,6 +59,12 @@ export default function reducer(state = initialState, action) {
     case FAVORITE_MARKED:
       return { ...state, favorites: [...state.favorites, action.payload] };
 
+    case DELETE_SUCCESS:
+      console.log("id?", action.payload);
+      return {
+        ...state,
+        favorites: state.favorites.filter((fav) => fav.id !== action.payload),
+      };
     default:
       return state;
   }

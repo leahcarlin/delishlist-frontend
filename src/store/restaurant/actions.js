@@ -51,5 +51,6 @@ export const searchRestaurant = (name) => async (dispatch, getState) => {
       console.log("error:", e.message);
       dispatch(setMessage("danger", true, e.message));
     }
+    dispatch(appDoneLoading());
   }
 };
