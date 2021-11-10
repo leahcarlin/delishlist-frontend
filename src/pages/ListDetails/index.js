@@ -26,7 +26,7 @@ export default function ListDetails() {
   const dispatch = useDispatch();
   const list = useSelector(selectListDetails);
   const favIds = useSelector(selectFavoriteIds);
-  console.log("Fav ids??", favIds);
+  // console.log("Fav ids??", favIds);
   moment.locale("en-gb"); // european date format
   const history = useHistory();
 
