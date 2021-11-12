@@ -14,9 +14,7 @@ import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists, getFavorites } from "../../store/user/actions";
 import { addRestaurantToList } from "../../store/list/actions";
 import { useParams } from "react-router";
-import { apiKey } from "../../config/constants";
 import { useHistory } from "react-router-dom";
-import { markFavorite, removeFavorite } from "../../store/user/actions";
 import MapContainer from "../../components/Map";
 import { showEuros } from "../../config/constants";
 
@@ -24,7 +22,6 @@ export default function RestaurantDetails() {
   const dispatch = useDispatch();
   const restaurant = useSelector(selectRestaurantDetails);
   const lists = useSelector(selectMyLists);
-  const favorites = useSelector(selectFavorites);
   const favPlaceIds = useSelector(selectFavoritePlaceIds);
   console.log("place ids?", favPlaceIds);
   const [addToList, setAddToList] = useState(false);
@@ -57,7 +54,7 @@ export default function RestaurantDetails() {
     <Container fluid className="RestDetailsContainer">
       <Row className="RestDetails-row-1">
         <Image
-          src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${restaurant.photos[0].photo_reference}&key=${apiKey}`}
+          src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${restaurant.photos[0].photo_reference}&key=${process.env.REACT_APP_GKEY}`}
         />
       </Row>
       <Row style={{ marginTop: "20px" }}>

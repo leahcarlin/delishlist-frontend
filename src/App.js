@@ -20,6 +20,7 @@ import FindRestaurant from "./pages/FindRestaurant";
 import AddCollaborator from "./pages/AddCollaborator";
 import LandingPage from "./pages/LandingPage";
 import MyFavorites from "./pages/MyFavorites";
+import BrowseRestaurants from "./pages/BrowseRestaurants";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App(props) {
         <Route path="/list/:id" component={ListDetails} />
         <Route path="/restaurant/favorites" component={MyFavorites} />
         <Route path="/restaurant/find" component={FindRestaurant} />
+        <Route path="/restaurant/browse" component={BrowseRestaurants} />
         <Route path="/users/add/list/:id" component={AddCollaborator} />
         <Route path="/restaurant/:place_id" component={RestaurantDetails} />
         <Route path="/login" component={Login} />

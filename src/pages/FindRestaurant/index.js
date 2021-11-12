@@ -9,7 +9,6 @@ import "./FindRestaurant.scss";
 import { addRestaurantToList } from "../../store/list/actions";
 import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists } from "../../store/user/actions";
-import { apiKey } from "../../config/constants";
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
@@ -89,7 +88,7 @@ export default function FindRestaurant() {
               <Row className="results" key={result.place_id}>
                 <Col className="col-img">
                   <Image
-                    src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${result.photos[0].photo_reference}&key=${apiKey}`}
+                    src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${result.photos[0].photo_reference}&key=${process.env.REACT_APP_GKEY}`}
                   />
                 </Col>
                 <Col className="col-info">
@@ -136,6 +135,15 @@ export default function FindRestaurant() {
           ) : null}
         </Row>
       )}
+      <Row style={{ marginTop: "20px" }}>
+        <b>
+          <p className="inspo">Need some inspiration?</p>
+        </b>
+        <p>
+          <Link to="/restaurant/browse">Browse restaurants</Link> that other
+          users have added to their lists!
+        </p>
+      </Row>
     </Container>
   );
 }
