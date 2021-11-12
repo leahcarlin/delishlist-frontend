@@ -9,6 +9,7 @@ import "./FindRestaurant.scss";
 import { addRestaurantToList } from "../../store/list/actions";
 import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists } from "../../store/user/actions";
+import { showEuros } from "../../config/constants";
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
@@ -95,21 +96,10 @@ export default function FindRestaurant() {
                   <p>
                     <b>{result.name}</b>
                   </p>
-                  <p>{result.rating}</p>
-                  <p>{result.price_level}</p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Link
-                      to={`/restaurant/${result.place_id}`}
-                      style={{ color: "black" }}
-                    >
-                      View
-                    </Link>
+                  <p>Rating: {result.rating}</p>
+                  <p>{showEuros(result.price_level)}</p>
+                  <div className="link">
+                    <Link to={`/restaurant/${result.place_id}`}>View</Link>
                     <button
                       className="add-btn"
                       onClick={() => {
