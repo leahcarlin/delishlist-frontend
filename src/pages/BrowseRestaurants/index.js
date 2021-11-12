@@ -9,6 +9,7 @@ import { fetchMyLists } from "../../store/user/actions";
 import { selectMyLists } from "../../store/user/selectors";
 import AddRestaurant from "../../components/AddRestaurant.js";
 import { addRestaurantToList } from "../../store/list/actions";
+import { showEuros } from "../../config/constants";
 
 export default function BrowseRestaurants() {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ export default function BrowseRestaurants() {
               <b>{res.name}</b>
             </p>
             <p>Rating: {res.rating}</p>
-            <p>{res.priceLevel}</p>
+            <p>{showEuros(res.priceLevel)}</p>
             <div
               style={{
                 display: "flex",
@@ -74,7 +75,7 @@ export default function BrowseRestaurants() {
             >
               <Link
                 to={`/restaurant/${res.placeId}`}
-                style={{ color: "black" }}
+                style={{ color: "#d62828", textDecoration: "none" }}
               >
                 View
               </Link>

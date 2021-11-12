@@ -7,6 +7,16 @@
   p {
     margin-bottom: 0;
   }
+  .link {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    a {
+      color: #d62828;
+      text-decoration: none;
+    }
+  }
 
   .col-img img {
     border-radius: 10px;
@@ -16,7 +26,7 @@
   .add-btn {
     border: none;
     background-color: white;
-    text-decoration: underline;
+    color: #d62828;
   }
 }
 .inspo {
