@@ -71,20 +71,20 @@ export default function RestaurantDetails() {
         ) : null}
       </Row>
       <Row className="RestDetails-row-2" style={{ marginBottom: "20px" }}>
-        <Col className="col1">
-          {restaurant?.opening_hours.weekday_text.map((day) => (
-            <p style={{ margin: "0" }}>{day}</p>
-          ))}
-        </Col>
-        <Col className="col2" xs={4}>
-          <button
-            className="AddButton"
-            onClick={() => setAddToList(!addToList)}
-          >
-            <i class="bi bi-list-task"></i>
-            <p>add to list</p>
-          </button>
-        </Col>
+        {restaurant?.opening_hours.weekday_text.map((day) => (
+          <p style={{ margin: "0" }}>{day}</p>
+        ))}
+      </Row>
+      <Row className="RestDetails-row-3">
+        <a target="_blank" rel="noreferrer" href={restaurant.website}>
+          Visit Website
+        </a>
+      </Row>
+      <Row className="RestDetails-row-4" xs={4}>
+        <button className="AddButton" onClick={() => setAddToList(!addToList)}>
+          <i class="bi bi-list-task"></i>
+          <p>add to list</p>
+        </button>
       </Row>
       {!lists ? null : (
         <Row style={{ marginBottom: "20px" }}>
@@ -93,11 +93,6 @@ export default function RestaurantDetails() {
           ) : null}
         </Row>
       )}
-      <Row className="RestDetails-row-3">
-        <a target="_blank" rel="noreferrer" href={restaurant.website}>
-          Visit Website
-        </a>
-      </Row>
       <MapContainer
         name={restaurant.name}
         lat={restaurant.geometry.location.lat}

@@ -8,7 +8,7 @@
     margin-top: 20px;
 
     img {
-      border-radius: 10px;
+      border-radius: 20px;
       width: 800px;
       height: 200px;
       object-fit: cover;
@@ -16,24 +16,12 @@
   }
 
   .RestDetails-row-2 {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-
-    .col2 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      button {
-        background-color: white;
-        border: none;
-      }
-    }
+    margin-top: 10px;
   }
 
   .RestDetails-row-3 {
     margin: 0 10px 0 10px;
+    padding-left: 0;
 
     a {
       text-decoration: none;
@@ -43,6 +31,17 @@
       font-weight: bold;
       border-radius: 10px;
       text-align: center;
+      margin: 20px 0 10px 0;
+    }
+  }
+
+  .RestDetails-row-4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      background-color: white;
+      border: none;
     }
   }
 }

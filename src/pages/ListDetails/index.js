@@ -43,7 +43,7 @@ export default function ListDetails() {
 
   return (
     <Container fluid>
-      <Row className="ListDetails-row-1" style={{ marginTop: "20px" }}>
+      <Row className="ListDetails-row-1" style={{ marginTop: "10px" }}>
         <h2>{list.title}</h2>
         <p>Created {moment(list.createdAt).format("LL")}</p>
       </Row>
