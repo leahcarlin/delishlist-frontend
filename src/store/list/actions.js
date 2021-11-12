@@ -80,10 +80,21 @@ export const addRestaurantToList =
       dispatch(
         showMessageWithTimeout("success", true, "Restaurant added!", 1500)
       );
-      dispatch(appDoneLoading());
       history.push(`/list/${id}`);
+      dispatch(appDoneLoading());
     } catch (e) {
-      console.log(e.message);
+      if (e.response) {
+        console.log("error:", e.response.data.message);
+        dispatch(setMessage("danger", true, e.response.data.message));
+        dispatch(appDoneLoading());
+        history.push(`/restaurant/browse`);
+      } else {
+        console.log("error:", e.message);
+        dispatch(setMessage("danger", true, e.message));
+        dispatch(appDoneLoading());
+        history.push(`/restaurant/browse`);
+      }
+      dispatch(appDoneLoading());
     }
   };
 
