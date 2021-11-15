@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantDetails } from "../../store/restaurant/actions";
 import { selectRestaurantDetails } from "../../store/restaurant/selectors";
 import {
   selectFavoritePlaceIds,
-  selectFavorites,
   selectMyLists,
 } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
