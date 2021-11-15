@@ -16,6 +16,7 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import MapContainer from "../../components/Map";
 import { showEuros, showStars } from "../../config/constants";
+import { apiKey } from "../../config/constants";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ export default function RestaurantDetails() {
     <Container fluid className="RestDetailsContainer">
       <Row className="RestDetails-row-1">
         <Image
-          src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${restaurant.photos[0].photo_reference}&key=${process.env.REACT_APP_GKEY}`}
+          src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${restaurant.photos[0].photo_reference}&key=${apiKey}`}
         />
       </Row>
       <Row style={{ marginTop: "20px" }}>

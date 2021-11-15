@@ -19,6 +19,7 @@ import {
   removeFavorite,
 } from "../../store/user/actions";
 import { selectFavoriteIds } from "../../store/user/selectors";
+import { apiKey } from "../../config/constants";
 
 export default function ListDetails() {
   const { id } = useParams();
@@ -110,7 +111,7 @@ export default function ListDetails() {
             <Link to={`/restaurant/${res.placeId}`}>
               <Image
                 style={{ borderRadius: "10px" }}
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${process.env.REACT_APP_GKEY}`}
+                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
               />
             </Link>
           </div>

@@ -6,6 +6,7 @@ import { selectFavorites } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import { Link } from "react-router-dom";
 import { showEuros, showStars } from "../../config/constants";
+import { apiKey } from "../../config/constants";
 
 export default function MyFavorites() {
   const favorites = useSelector(selectFavorites);
@@ -42,7 +43,7 @@ export default function MyFavorites() {
               <Link to={`/restaurant/${res.placeId}`}>
                 <Image
                   style={{ borderRadius: "10px" }}
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${process.env.REACT_APP_GKEY}`}
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
                 />
               </Link>
             </div>

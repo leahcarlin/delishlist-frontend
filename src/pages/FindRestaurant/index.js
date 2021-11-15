@@ -10,6 +10,7 @@ import { addRestaurantToList } from "../../store/list/actions";
 import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists } from "../../store/user/actions";
 import { showEuros } from "../../config/constants";
+import { apiKey } from "../../config/constants";
 
 export default function FindRestaurant() {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ export default function FindRestaurant() {
               <Row className="results" key={result.place_id}>
                 <Col className="col-img">
                   <Image
-                    src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${result.photos[0].photo_reference}&key=${process.env.REACT_APP_GKEY}`}
+                    src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photo_reference=${result.photos[0].photo_reference}&key=${apiKey}`}
                   />
                 </Col>
                 <Col className="col-info">
