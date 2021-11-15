@@ -256,6 +256,15 @@ export const markFavorite =
         userId: id,
       });
       dispatch(favoriteMarked(res.data));
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          true,
+          "Restaurant marked as favorite",
+          1500
+        )
+      );
+      history.push(`/restaurant/favorites`);
       dispatch(appDoneLoading());
     } catch (e) {
       if (e.response) {
@@ -263,12 +272,12 @@ export const markFavorite =
         dispatch(
           showMessageWithTimeout("danger", true, e.response.data.message, 1500)
         );
-        history.push(`/restaurant/${placeId}`);
+        history.push(`/restaurant/favorites`);
         dispatch(appDoneLoading());
       } else {
         console.log("error:", e.message);
         dispatch(showMessageWithTimeout("danger", true, e.message, 1500));
-        history.push(`/restaurant/${placeId}`);
+        history.push(`/restaurant/favorites`);
         dispatch(appDoneLoading());
       }
     }

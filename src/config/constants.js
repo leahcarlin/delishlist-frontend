@@ -14,3 +14,107 @@ export const showEuros = (priceLevel) => {
     return "";
   }
 };
+
+export const showStars = (rating) => {
+  if (rating < 1) {
+    return (
+      <div>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 1 && rating < 1.5) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 1.5 && rating < 2) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-half" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 2 && rating < 2.5) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 2.5 && rating < 3) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-half" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 3 && rating < 3.5) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 3.5 && rating < 4) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-half" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 4 && rating < 4.5) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star"></i>
+      </div>
+    );
+  } else if (rating >= 4.5 && rating < 5) {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-half" style={{ color: "#fcbf49" }}></i>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
+      </div>
+    );
+  }
+};

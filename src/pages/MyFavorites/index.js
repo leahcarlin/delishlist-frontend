@@ -5,7 +5,7 @@ import { getFavorites, removeFavorite } from "../../store/user/actions";
 import { selectFavorites } from "../../store/user/selectors";
 import Loading from "../../components/Loading";
 import { Link } from "react-router-dom";
-import { showEuros } from "../../config/constants";
+import { showEuros, showStars } from "../../config/constants";
 
 export default function MyFavorites() {
   const favorites = useSelector(selectFavorites);
@@ -55,7 +55,7 @@ export default function MyFavorites() {
                   <b>{res.name}</b>
                 </p>
               </Link>
-              <p>Rating: {parseFloat(res.rating)}</p>
+              <p>{showStars(res.rating)}</p>
               {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
             </div>
             <div>

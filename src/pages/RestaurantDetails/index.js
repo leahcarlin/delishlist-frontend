@@ -16,7 +16,7 @@ import { addRestaurantToList } from "../../store/list/actions";
 import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import MapContainer from "../../components/Map";
-import { showEuros } from "../../config/constants";
+import { showEuros, showStars } from "../../config/constants";
 
 export default function RestaurantDetails() {
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ export default function RestaurantDetails() {
           <b>{restaurant.name}</b>
         </h3>
         <p>{restaurant.formatted_address}</p>
-        <p>Rating: {restaurant.rating}</p>
+        <p>{showStars(restaurant.rating)}</p>
         {restaurant.price_level ? (
           <p>{showEuros(restaurant.price_level)}</p>
         ) : null}
