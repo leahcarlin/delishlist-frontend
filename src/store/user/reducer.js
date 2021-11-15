@@ -1,4 +1,3 @@
-import { StaticRouter } from "react-router";
 import {
   LOG_OUT,
   LOGIN_SUCCESS,
