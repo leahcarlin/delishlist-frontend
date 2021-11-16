@@ -17,7 +17,7 @@ I started with brainstorming and creating a database diagram, wireframes, and us
 - Repositories
 
 ## App Demo
-![App Demo](https://giphy.com/embed/ZEQzsuc6KvJhUbMGTX/giphy.gif)
+![App Demo](https://media3.giphy.com/media/ZEQzsuc6KvJhUbMGTX/giphy.gif?cid=790b76119e39f44a53649adf9ea83a749a80617caf70354e&rid=giphy.gif&ct=g/giphy.gif)
 
 ## Technology Used
 
