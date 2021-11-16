@@ -9,7 +9,7 @@ import { fetchMyLists } from "../../store/user/actions";
 import { selectMyLists } from "../../store/user/selectors";
 import AddRestaurant from "../../components/AddRestaurant.js";
 import { addRestaurantToList } from "../../store/list/actions";
-import { showEuros } from "../../config/constants";
+import { showEuros, showStars } from "../../config/constants";
 import { apiKey } from "../../config/constants";
 
 export default function BrowseRestaurants() {
@@ -65,7 +65,7 @@ export default function BrowseRestaurants() {
             <p>
               <b>{res.name}</b>
             </p>
-            <p>Rating: {res.rating}</p>
+            <p>{showStars(res.rating)}</p>
             <p>{showEuros(res.priceLevel)}</p>
             <div
               style={{

@@ -9,7 +9,7 @@ import "./FindRestaurant.scss";
 import { addRestaurantToList } from "../../store/list/actions";
 import AddRestaurant from "../../components/AddRestaurant.js";
 import { fetchMyLists } from "../../store/user/actions";
-import { showEuros } from "../../config/constants";
+import { showEuros, showStars } from "../../config/constants";
 import { apiKey } from "../../config/constants";
 
 export default function FindRestaurant() {
@@ -97,7 +97,7 @@ export default function FindRestaurant() {
                   <p>
                     <b>{result.name}</b>
                   </p>
-                  <p>Rating: {result.rating}</p>
+                  <p>{showStars(result.rating)}</p>
                   <p>{showEuros(result.price_level)}</p>
                   <div className="link">
                     <Link to={`/restaurant/${result.place_id}`}>View</Link>
