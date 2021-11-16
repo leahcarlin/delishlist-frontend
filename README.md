@@ -1,6 +1,6 @@
 # 🍔 Delish List
 
-<!-- See the deployed version here -->
+See the deployed version [here](https://delish-list.netlify.app/)
 
 ## Description
 
@@ -10,14 +10,16 @@ I started with brainstorming and creating a database diagram, wireframes, and us
 
 ## Table of Contents
 
-<!-- - App Demo -->
-
+- App Demo
 - Technology Used
 - Goals for this Project
 - User Stories and Wireframe
 - Repositories
 
-<!-- ## App Demo -->
+## App Demo
+![App Demo](https://media3.giphy.com/media/ZEQzsuc6KvJhUbMGTX/giphy.gif?cid=790b76119e39f44a53649adf9ea83a749a80617caf70354e&rid=giphy.gif&ct=g/giphy.gif)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+![App Demo](https://media2.giphy.com/media/3F2CcAUm3ZbcavupZo/giphy.gif?cid=790b7611bba0f4a9a6ee0a46973adbc49089764960168bbb&rid=giphy.gif&ct=g/giphy.gif)
 
 ## Technology Used
 
