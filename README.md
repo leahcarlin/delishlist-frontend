@@ -10,14 +10,14 @@ I started with brainstorming and creating a database diagram, wireframes, and us
 
 ## Table of Contents
 
-<!-- - App Demo -->
-
+- App Demo
 - Technology Used
 - Goals for this Project
 - User Stories and Wireframe
 - Repositories
 
-<!-- ## App Demo -->
+## App Demo
+![App Demo](https://giphy.com/embed/ZEQzsuc6KvJhUbMGTX)
 
 ## Technology Used
 
