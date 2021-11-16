@@ -1,6 +1,6 @@
 # 🍔 Delish List
 
-<!-- See the deployed version here -->
+See the deployed version [here](https://delish-list.netlify.app/)
 
 ## Description
 
