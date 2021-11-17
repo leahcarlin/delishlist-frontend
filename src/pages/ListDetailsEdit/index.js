@@ -147,6 +147,14 @@ export default function ListDetailsEdit() {
       ) : (
         <p style={{ color: "#d62828" }}>Only owners of the list can edit</p>
       )}
+      <Link to="/home" style={{ textDecoration: "none", color: "black" }}>
+        <div
+          style={{ display: "flex", flexDirection: "row", marginTop: "20px" }}
+        >
+          <i class="bi bi-arrow-left"></i>
+          <p style={{ marginLeft: "10px" }}>Back to My Lists</p>
+        </div>
+      </Link>
     </Container>
   );
 }
