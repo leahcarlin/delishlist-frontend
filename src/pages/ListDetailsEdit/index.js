@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Dropdown, Image } from "react-bootstrap";
+import { Container, Row, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { editListTitle, fetchListDetails } from "../../store/list/actions";
+import {
+  editListTitle,
+  fetchListDetails,
+  removeRestaurant,
+} from "../../store/list/actions";
 import { selectListDetails } from "../../store/list/selectors";
 import Loading from "../../components/Loading";
 import moment from "moment";
@@ -12,6 +16,7 @@ import { Link } from "react-router-dom";
 import { showEuros, showStars } from "../../config/constants";
 import { apiKey } from "../../config/constants";
 import { selectUser } from "../../store/user/selectors";
+import { removeCollab } from "../../store/list/actions";
 
 export default function ListDetailsEdit() {
   const [title, setTitle] = useState("");
@@ -28,6 +33,14 @@ export default function ListDetailsEdit() {
   const submitNewTitle = () => {
     dispatch(editListTitle(list.id, title));
     setTitle("");
+  };
+
+  const deleteCollab = (listId, collabId) => {
+    dispatch(removeCollab(listId, collabId));
+  };
+
+  const deleteRestaurant = (listId, restaurantId) => {
+    dispatch(removeRestaurant(listId, restaurantId));
   };
 
   if (!list) return <Loading />;
@@ -54,38 +67,43 @@ export default function ListDetailsEdit() {
       </form>
       <div style={{ display: "flex", color: "#d62828", marginTop: "20px" }}>
         <i class="bi bi-person-dash-fill"></i>
-        <p style={{ marginLeft: "10px" }}>Edit collaborators</p>
+        <p style={{ marginLeft: "10px" }}>Remove collaborators</p>
       </div>
       <div>
         <ul>
           {list.users
-            .filter((collab) => collab.id !== user.id)
-            .map((person) => (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <button
-                  style={{
-                    marginLeft: "10px",
-                    backgroundColor: "white",
-                    border: "none",
-                    fontSize: "1.5em",
-                  }}
-                >
-                  <i class="bi bi-file-x"></i>
-                </button>
-                <li style={{ listStyleType: "none" }}>{person.firstName}</li>
-              </div>
-            ))}
+            ? list.users
+                .filter((collab) => collab.id !== user.id)
+                .map((person) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <button
+                      onClick={() => deleteCollab(list.id, person.id)}
+                      style={{
+                        marginLeft: "10px",
+                        backgroundColor: "white",
+                        border: "none",
+                        fontSize: "1.5em",
+                      }}
+                    >
+                      <i class="bi bi-file-x"></i>
+                    </button>
+                    <li style={{ listStyleType: "none" }}>
+                      {person.firstName}
+                    </li>
+                  </div>
+                ))
+            : null}
         </ul>
       </div>
       <div style={{ display: "flex", color: "#d62828" }}>
-        <i class="bi bi-pencil-fill"></i>
-        <p style={{ marginLeft: "10px" }}>Edit Restaurants</p>
+        <i class="bi bi-trash-fill"></i>
+        <p style={{ marginLeft: "10px" }}>Remove Restaurants</p>
       </div>
       {list.restaurants.map((res) => (
         <div className="RestaurantDetails" key={res.id}>
@@ -117,6 +135,7 @@ export default function ListDetailsEdit() {
                   borderRadius: "10px",
                   fontSize: ".75em",
                 }}
+                onClick={() => deleteRestaurant(list.id, res.id)}
               >
                 Remove
               </button>
