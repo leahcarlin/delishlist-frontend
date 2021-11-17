@@ -51,102 +51,102 @@ export default function ListDetailsEdit() {
         <h2>{list.title}</h2>
         <p>Created {moment(list.createdAt).format("LL")}</p>
       </Row>
-      <div style={{ display: "flex", color: "#d62828" }}>
-        <i class="bi bi-pencil-fill"></i>
-        <p style={{ marginLeft: "10px" }}>Edit List Title</p>
-      </div>
-      <form onSubmit={submitNewTitle}>
-        <input
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          type="text"
-          id="title"
-          placeholder="Enter new list title"
-        ></input>
-        <button>OK</button>
-      </form>
-      <div style={{ display: "flex", color: "#d62828", marginTop: "20px" }}>
-        <i class="bi bi-person-dash-fill"></i>
-        <p style={{ marginLeft: "10px" }}>Remove collaborators</p>
-      </div>
-      <div>
-        <ul>
-          {list.users
-            ? list.users
-                .filter((collab) => collab.id !== user.id)
-                .map((person) => (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <button
-                      onClick={() => deleteCollab(list.id, person.id)}
-                      style={{
-                        marginLeft: "10px",
-                        backgroundColor: "white",
-                        border: "none",
-                        fontSize: "1.5em",
-                      }}
-                    >
-                      <i class="bi bi-file-x"></i>
-                    </button>
-                    <li style={{ listStyleType: "none" }}>
-                      {person.firstName}
-                    </li>
-                  </div>
-                ))
-            : null}
-        </ul>
-      </div>
-      <div style={{ display: "flex", color: "#d62828" }}>
-        <i class="bi bi-trash-fill"></i>
-        <p style={{ marginLeft: "10px" }}>Remove Restaurants</p>
-      </div>
-      {list.restaurants.map((res) => (
-        <div className="RestaurantDetails" key={res.id}>
-          <div className="col-2">
-            <Link to={`/restaurant/${res.placeId}`}>
-              <Image
-                style={{ borderRadius: "10px" }}
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
-              />
-            </Link>
+      {user.id === list.ownerId ? (
+        <div>
+          <div style={{ display: "flex", color: "#d62828" }}>
+            <i class="bi bi-pencil-fill"></i>
+            <p style={{ marginLeft: "10px" }}>Edit List Title</p>
           </div>
-          <div className="col-3">
-            <Link
-              to={`/restaurant/${res.placeId}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <p>
-                <b>{res.name}</b>
-              </p>
-            </Link>
-            <p>{showStars(res.rating)}</p>
-            {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
+          <form onSubmit={submitNewTitle}>
+            <input
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              type="text"
+              id="title"
+              placeholder="Enter new list title"
+            ></input>
+            <button>OK</button>
+          </form>
+          <div style={{ display: "flex", color: "#d62828", marginTop: "20px" }}>
+            <i class="bi bi-person-dash-fill"></i>
+            <p style={{ marginLeft: "10px" }}>Remove collaborators</p>
           </div>
-          {user.id === list.ownerId ? (
-            <div>
-              <button
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  fontSize: ".75em",
-                }}
-                onClick={() => deleteRestaurant(list.id, res.id)}
-              >
-                Remove
-              </button>
+          <div>
+            <ul>
+              {list.users
+                ? list.users
+                    .filter((collab) => collab.id !== user.id)
+                    .map((person) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <button
+                          onClick={() => deleteCollab(list.id, person.id)}
+                          style={{
+                            marginLeft: "10px",
+                            backgroundColor: "white",
+                            border: "none",
+                            fontSize: "1.5em",
+                          }}
+                        >
+                          <i class="bi bi-file-x"></i>
+                        </button>
+                        <li style={{ listStyleType: "none" }}>
+                          {person.firstName}
+                        </li>
+                      </div>
+                    ))
+                : null}
+            </ul>
+          </div>
+          <div style={{ display: "flex", color: "#d62828" }}>
+            <i class="bi bi-trash-fill"></i>
+            <p style={{ marginLeft: "10px" }}>Remove Restaurants</p>
+          </div>
+          {list.restaurants.map((res) => (
+            <div className="RestaurantDetails" key={res.id}>
+              <div className="col-2">
+                <Link to={`/restaurant/${res.placeId}`}>
+                  <Image
+                    style={{ borderRadius: "10px" }}
+                    src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${res.photoReference}&key=${apiKey}`}
+                  />
+                </Link>
+              </div>
+              <div className="col-3">
+                <Link
+                  to={`/restaurant/${res.placeId}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <p>
+                    <b>{res.name}</b>
+                  </p>
+                </Link>
+                <p>{showStars(res.rating)}</p>
+                {res.priceLevel ? <p>{showEuros(res.priceLevel)}</p> : null}
+              </div>
+              <div>
+                <button
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    fontSize: ".75em",
+                  }}
+                  onClick={() => deleteRestaurant(list.id, res.id)}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
-          ) : (
-            <p style={{ color: "#d62828" }}>
-              Only the owner of this list can edit it
-            </p>
-          )}
+          ))}
         </div>
-      ))}
+      ) : (
+        <p style={{ color: "#d62828" }}>Only owners of the list can edit</p>
+      )}
     </Container>
   );
 }
