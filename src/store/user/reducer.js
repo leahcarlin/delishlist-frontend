@@ -32,9 +32,10 @@ export default function reducer(state = initialState, action) {
       return { ...state, ...action.payload };
 
     case MY_LISTS_FETCHED:
+      console.log("action?", action.payload);
       return {
         ...state,
-        myLists: [...action.payload.lists],
+        myLists: [...action.payload],
       };
     case NEW_LIST_SUCCESS:
       return {

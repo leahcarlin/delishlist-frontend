@@ -18,13 +18,15 @@ import {
   markFavorite,
   removeFavorite,
 } from "../../store/user/actions";
-import { selectFavoriteIds } from "../../store/user/selectors";
+import { selectFavoriteIds, selectUser } from "../../store/user/selectors";
 import { apiKey } from "../../config/constants";
 
 export default function ListDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const list = useSelector(selectListDetails);
+  console.log("list", list);
   const favIds = useSelector(selectFavoriteIds);
   // console.log("Fav ids??", favIds);
   moment.locale("en-gb"); // european date format
@@ -157,16 +159,36 @@ export default function ListDetails() {
           </div>
         </div>
       ))}
-      <Link
-        className="link"
-        to="/restaurant/find"
-        style={{ textDecoration: "none", color: "black" }}
-      >
-        <div className="AddRest">
-          <i class="bi bi-plus-circle"></i>
-          <p>Add a restaurant</p>
-        </div>
-      </Link>
+      <Row style={{ margin: "5px" }}>
+        <Col>
+          <Link
+            className="link"
+            to="/restaurant/find"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <div className="AddRest">
+              <i class="bi bi-plus-circle"></i>
+              <p>Add a restaurant</p>
+            </div>
+          </Link>
+        </Col>
+        {list?.ownerId === user.id ? (
+          <Col>
+            <Link
+              to={`/list/${list.id}/edit`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div
+                className="AddRest"
+                style={{ display: "flex", justifyContent: "flex-end" }}
+              >
+                <i class="bi bi-pencil-square"></i>
+                <p>Edit list</p>
+              </div>
+            </Link>
+          </Col>
+        ) : null}
+      </Row>
     </Container>
   );
 }

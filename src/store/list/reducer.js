@@ -1,7 +1,10 @@
 import {
   ADD_RESTAURANT_SUCCESS,
+  COLLAB_REMOVED,
   LIST_DETAILS_FETCHED,
   MARKED_VISITED,
+  REST_REMOVED,
+  TITLE_EDIT,
 } from "./actions";
 
 const initialState = {
@@ -44,7 +47,33 @@ export default function reducer(state = initialState, action) {
           ),
         },
       };
+    case TITLE_EDIT:
+      return {
+        ...state,
+        listDetails: action.payload,
+      };
 
+    case COLLAB_REMOVED:
+      return {
+        ...state,
+        listDetails: {
+          ...state.listDetails,
+          users: state.listDetails.users.filter(
+            (user) => user.id !== action.payload
+          ),
+        },
+      };
+
+    case REST_REMOVED:
+      return {
+        ...state,
+        listDetails: {
+          ...state.listDetails,
+          restaurants: state.listDetails.restaurants.filter(
+            (res) => res.id !== action.payload
+          ),
+        },
+      };
     default:
       return state;
   }

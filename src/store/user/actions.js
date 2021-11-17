@@ -160,13 +160,13 @@ export const getUserWithStoredToken = () => {
   };
 };
 
-// Get my lists
+// Get all my lists
 export const fetchMyLists = async (dispatch, getState) => {
   dispatch(appLoading());
   try {
     const { token } = selectUser(getState());
     // console.log("token", token);
-    const res = await axios.get(`${apiUrl}/mylists`, {
+    const res = await axios.get(`${apiUrl}/mylists/all`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     // console.log("res data", res.data);

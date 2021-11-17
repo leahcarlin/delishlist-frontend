@@ -12,6 +12,9 @@ export const LIST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
 export const ADD_RESTAURANT_SUCCESS = "ADD_RESTAURANT_SUCCESS";
 export const COLLABORATOR_ADDED = "COLLABORATOR_ADDED";
 export const MARKED_VISITED = "MARKED_VISITED";
+export const TITLE_EDIT = "TITLE_EDIT";
+export const COLLAB_REMOVED = "COLLAB_REMOVED";
+export const REST_REMOVED = "REST_REMOVED";
 
 const listDetailsFetched = (data) => {
   return {
@@ -41,6 +44,26 @@ const markVisitedSuccess = (data) => {
   };
 };
 
+const titleEdited = (data) => {
+  return {
+    type: TITLE_EDIT,
+    payload: data,
+  };
+};
+
+const collabRemoved = (id) => {
+  return {
+    type: COLLAB_REMOVED,
+    payload: id,
+  };
+};
+
+const restaurantRemoved = (id) => {
+  return {
+    type: REST_REMOVED,
+    payload: id,
+  };
+};
 // Get my lists details
 export const fetchListDetails = (id) => async (dispatch, getState) => {
   dispatch(appLoading());
@@ -140,6 +163,83 @@ export const markRestaurantVisited =
         restaurantId,
       });
       dispatch(markVisitedSuccess(res.data));
+      dispatch(appDoneLoading());
+    } catch (e) {
+      if (e.response) {
+        console.log("error:", e.response.data.message);
+        dispatch(setMessage("danger", true, e.response.data.message));
+      } else {
+        console.log("error:", e.message);
+        dispatch(setMessage("danger", true, e.message));
+      }
+    }
+  };
+
+//Edit the title of my list
+export const editListTitle = (listId, title) => async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const { token } = selectUser(getState());
+    const res = await axios.patch(
+      `${apiUrl}/mylists/${listId}`,
+      {
+        title,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch(titleEdited(res.data));
+    dispatch(appDoneLoading());
+  } catch (e) {
+    if (e.response) {
+      console.log("error:", e.response.data.message);
+      dispatch(setMessage("danger", true, e.response.data.message));
+    } else {
+      console.log("error:", e.message);
+      dispatch(setMessage("danger", true, e.message));
+    }
+  }
+};
+
+//Remove a collaborator from my list
+export const removeCollab =
+  (listId, collabId) => async (dispatch, getState) => {
+    dispatch(appLoading());
+    try {
+      const { token } = selectUser(getState());
+      const res = await axios.delete(
+        `${apiUrl}/mylists/${listId}/collaborator/${collabId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(collabRemoved(collabId));
+      dispatch(appDoneLoading());
+    } catch (e) {
+      if (e.response) {
+        console.log("error:", e.response.data.message);
+        dispatch(setMessage("danger", true, e.response.data.message));
+      } else {
+        console.log("error:", e.message);
+        dispatch(setMessage("danger", true, e.message));
+      }
+    }
+  };
+
+//Remove a restaurant from my list
+export const removeRestaurant =
+  (listId, restaurantId) => async (dispatch, getState) => {
+    dispatch(appLoading());
+    try {
+      const { token } = selectUser(getState());
+      const res = await axios.delete(
+        `${apiUrl}/mylists/${listId}/restaurant/${restaurantId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(restaurantRemoved(restaurantId));
       dispatch(appDoneLoading());
     } catch (e) {
       if (e.response) {

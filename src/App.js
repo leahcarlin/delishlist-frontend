@@ -16,6 +16,7 @@ import MyLists from "./pages/MyLists";
 import ListDetails from "./pages/ListDetails";
 import RestaurantDetails from "./pages/RestaurantDetails";
 import FindRestaurant from "./pages/FindRestaurant";
+import ListDetailsEdit from "./pages/ListDetailsEdit";
 
 import AddCollaborator from "./pages/AddCollaborator";
 import LandingPage from "./pages/LandingPage";
@@ -39,6 +40,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route path="/home" component={MyLists} />
+        <Route path="/list/:id/edit" component={ListDetailsEdit} />
         <Route path="/list/:id" component={ListDetails} />
         <Route path="/restaurant/favorites" component={MyFavorites} />
         <Route path="/restaurant/find" component={FindRestaurant} />
