@@ -2,6 +2,7 @@ import {
   ADD_RESTAURANT_SUCCESS,
   LIST_DETAILS_FETCHED,
   MARKED_VISITED,
+  TITLE_EDIT,
 } from "./actions";
 
 const initialState = {
@@ -43,6 +44,11 @@ export default function reducer(state = initialState, action) {
               : res
           ),
         },
+      };
+    case TITLE_EDIT:
+      return {
+        ...state,
+        listDetails: action.payload,
       };
 
     default:

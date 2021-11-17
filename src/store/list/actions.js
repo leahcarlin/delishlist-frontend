@@ -12,6 +12,7 @@ export const LIST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
 export const ADD_RESTAURANT_SUCCESS = "ADD_RESTAURANT_SUCCESS";
 export const COLLABORATOR_ADDED = "COLLABORATOR_ADDED";
 export const MARKED_VISITED = "MARKED_VISITED";
+export const TITLE_EDIT = "TITLE_EDIT";
 
 const listDetailsFetched = (data) => {
   return {
@@ -37,6 +38,13 @@ const collaboratorAdded = (data) => {
 const markVisitedSuccess = (data) => {
   return {
     type: MARKED_VISITED,
+    payload: data,
+  };
+};
+
+const titleEdited = (data) => {
+  return {
+    type: TITLE_EDIT,
     payload: data,
   };
 };
@@ -151,3 +159,30 @@ export const markRestaurantVisited =
       }
     }
   };
+
+//Edit the title of my list
+export const editListTitle = (listId, title) => async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const { token } = selectUser(getState());
+    const res = await axios.patch(
+      `${apiUrl}/mylists/${listId}`,
+      {
+        title,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch(titleEdited(res.data));
+    dispatch(appDoneLoading());
+  } catch (e) {
+    if (e.response) {
+      console.log("error:", e.response.data.message);
+      dispatch(setMessage("danger", true, e.response.data.message));
+    } else {
+      console.log("error:", e.message);
+      dispatch(setMessage("danger", true, e.message));
+    }
+  }
+};

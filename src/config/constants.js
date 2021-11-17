@@ -20,21 +20,21 @@ export const showStars = (rating) => {
   if (rating < 1) {
     return (
       <div>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 1 && rating < 1.5) {
     return (
       <div>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 1.5 && rating < 2) {
@@ -42,9 +42,9 @@ export const showStars = (rating) => {
       <div>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-half" style={{ color: "#fcbf49" }}></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 2 && rating < 2.5) {
@@ -52,9 +52,9 @@ export const showStars = (rating) => {
       <div>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 2.5 && rating < 3) {
@@ -63,8 +63,8 @@ export const showStars = (rating) => {
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-half" style={{ color: "#fcbf49" }}></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 3 && rating < 3.5) {
@@ -73,8 +73,8 @@ export const showStars = (rating) => {
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
-        <i class="bi bi-star"></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 3.5 && rating < 4) {
@@ -84,7 +84,7 @@ export const showStars = (rating) => {
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-half" style={{ color: "#fcbf49" }}></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 4 && rating < 4.5) {
@@ -94,7 +94,7 @@ export const showStars = (rating) => {
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
         <i class="bi bi-star-fill" style={{ color: "#fcbf49" }}></i>
-        <i class="bi bi-star"></i>
+        <i class="bi bi-star-fill" style={{ color: "#D3D3D3" }}></i>
       </div>
     );
   } else if (rating >= 4.5 && rating < 5) {
