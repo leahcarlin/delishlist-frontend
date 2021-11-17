@@ -7,6 +7,7 @@ import {
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
 import { selectUser } from "../user/selectors";
+import { config } from "dotenv";
 
 export const LIST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
 export const ADD_RESTAURANT_SUCCESS = "ADD_RESTAURANT_SUCCESS";
@@ -162,6 +163,7 @@ export const markRestaurantVisited =
         listId,
         restaurantId,
       });
+      console.log(res.data);
       dispatch(markVisitedSuccess(res.data));
       dispatch(appDoneLoading());
     } catch (e) {
@@ -189,6 +191,7 @@ export const editListTitle = (listId, title) => async (dispatch, getState) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    console.log(res.data);
     dispatch(titleEdited(res.data));
     dispatch(appDoneLoading());
   } catch (e) {
