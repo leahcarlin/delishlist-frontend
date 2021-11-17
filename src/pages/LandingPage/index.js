@@ -11,8 +11,8 @@ export default function LandingPage() {
   const history = useHistory();
 
   useEffect(() => {
-    if (token) history.push("/home");
-    else history.push("/");
+    if (!token) history.push("/");
+    else history.push("/home");
   }, [token, history]);
 
   return (
@@ -30,10 +30,10 @@ export default function LandingPage() {
         />
       </div>
       <div className="AppInfo">
-        <p>
+        <h3>
           An app where you and your friends can create wish lists of restaurants
           you want to visit
-        </p>
+        </h3>
       </div>
       <div className="link-to-login">
         <h4>To use this app you have to log in or create an account</h4>
