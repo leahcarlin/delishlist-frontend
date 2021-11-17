@@ -4,7 +4,7 @@ import "../../pages/MyLists/MyLists.scss";
 export default function UserProfile(props) {
   const { user } = props;
   const sharedLists = user.myLists.filter((list) => {
-    return list?.users?.length > 1;
+    return list?.list.users?.length > 1;
   });
 
   return (
