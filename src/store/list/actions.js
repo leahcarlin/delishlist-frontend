@@ -7,7 +7,6 @@ import {
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
 import { selectUser } from "../user/selectors";
-import { config } from "dotenv";
 
 export const LIST_DETAILS_FETCHED = "LIST_DETAILS_FETCHED";
 export const ADD_RESTAURANT_SUCCESS = "ADD_RESTAURANT_SUCCESS";
@@ -217,6 +216,7 @@ export const removeCollab =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      console.log(res.data);
       dispatch(collabRemoved(collabId));
       dispatch(appDoneLoading());
     } catch (e) {
@@ -242,6 +242,7 @@ export const removeRestaurant =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      console.log(res.data);
       dispatch(restaurantRemoved(restaurantId));
       dispatch(appDoneLoading());
     } catch (e) {
