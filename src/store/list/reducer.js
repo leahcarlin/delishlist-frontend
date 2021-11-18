@@ -5,6 +5,7 @@ import {
   MARKED_VISITED,
   REST_REMOVED,
   TITLE_EDIT,
+  DELETE_LIST,
 } from "./actions";
 
 const initialState = {
@@ -73,6 +74,12 @@ export default function reducer(state = initialState, action) {
             (res) => res.id !== action.payload
           ),
         },
+      };
+
+    case DELETE_LIST:
+      return {
+        ...state,
+        listDetails: null,
       };
     default:
       return state;

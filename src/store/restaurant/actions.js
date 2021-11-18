@@ -67,7 +67,7 @@ export const searchRestaurant = (name) => async (dispatch, getState) => {
     const res = await axios.post(`${apiUrl}/restaurant/search`, {
       name,
     });
-    // console.log("search results", res.data.candidates);
+    console.log("search results", res.data.candidates);
     dispatch(completeSearch(res.data.candidates));
     dispatch(appDoneLoading());
   } catch (e) {

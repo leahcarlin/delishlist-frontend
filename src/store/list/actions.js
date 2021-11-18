@@ -15,6 +15,7 @@ export const MARKED_VISITED = "MARKED_VISITED";
 export const TITLE_EDIT = "TITLE_EDIT";
 export const COLLAB_REMOVED = "COLLAB_REMOVED";
 export const REST_REMOVED = "REST_REMOVED";
+export const DELETE_LIST = "DELETE_LIST";
 
 const listDetailsFetched = (data) => {
   return {
@@ -61,6 +62,13 @@ const collabRemoved = (id) => {
 const restaurantRemoved = (id) => {
   return {
     type: REST_REMOVED,
+    payload: id,
+  };
+};
+
+const listDeleted = (id) => {
+  return {
+    type: DELETE_LIST,
     payload: id,
   };
 };
@@ -255,3 +263,26 @@ export const removeRestaurant =
       }
     }
   };
+
+// Delete entire list
+export const deleteList = (listId, history) => async (dispatch, getState) => {
+  dispatch(appLoading());
+  try {
+    const { token } = selectUser(getState());
+    const res = await axios.delete(`${apiUrl}/mylists/${listId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("list deleted?", res.data);
+    dispatch(listDeleted(listId));
+    history.push(`/mylists/all`);
+    dispatch(appDoneLoading());
+  } catch (e) {
+    if (e.response) {
+      console.log("error:", e.response.data.message);
+      dispatch(setMessage("danger", true, e.response.data.message));
+    } else {
+      console.log("error:", e.message);
+      dispatch(setMessage("danger", true, e.message));
+    }
+  }
+};

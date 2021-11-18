@@ -17,7 +17,7 @@ export default function MyLists() {
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
   const lists = useSelector(selectMyLists);
-  console.log("lists?", lists);
+  // console.log("lists?", lists);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [addList, setAddList] = useState(false);
@@ -54,12 +54,9 @@ export default function MyLists() {
           <p>You don't have any lists yet!</p>
         ) : (
           lists.map((list) => (
-            <div className="List">
-              <Link
-                to={`/list/${list.list.id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <Col className="ListName">{list.list.title}</Col>
+            <div key={list.id} className="List">
+              <Link to={`/list/${list?.id}`} style={{ textDecoration: "none" }}>
+                <Col className="ListName">{list?.title}</Col>
               </Link>
               <Col className="ListDetails">
                 <Row>
@@ -67,9 +64,7 @@ export default function MyLists() {
                     class="bi bi-people-fill"
                     style={{ textAlign: "center" }}
                   ></i>
-                  {list.list.users ? (
-                    <p>{printCollabs(list?.list?.users)}</p>
-                  ) : null}
+                  {list?.users ? <p>{printCollabs(list?.users)}</p> : null}
                 </Row>
               </Col>
             </div>

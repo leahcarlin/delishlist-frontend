@@ -35,7 +35,7 @@ export default function reducer(state = initialState, action) {
       console.log("action?", action.payload);
       return {
         ...state,
-        myLists: [...action.payload],
+        myLists: [...action.payload.lists],
       };
     case NEW_LIST_SUCCESS:
       return {
@@ -60,11 +60,12 @@ export default function reducer(state = initialState, action) {
       return { ...state, favorites: [...state.favorites, action.payload] };
 
     case DELETE_SUCCESS:
-      console.log("id?", action.payload);
+      // console.log("id?", action.payload);
       return {
         ...state,
         favorites: state.favorites.filter((fav) => fav.id !== action.payload),
       };
+
     default:
       return state;
   }

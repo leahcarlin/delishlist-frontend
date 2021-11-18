@@ -23,7 +23,7 @@ export default function AddRestaurant(props) {
             }}
           >
             <p style={{ marginRight: "5px" }}>{list.title}</p>
-            <i class="bi bi-plus-circle"></i>
+            <i className="bi bi-plus-circle"></i>
           </li>
         </button>
       ))}

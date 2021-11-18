@@ -12,11 +12,12 @@ import Loading from "../../components/Loading";
 import moment from "moment";
 import "moment/locale/en-gb";
 import "../ListDetails/ListDetails.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { showEuros, showStars } from "../../config/constants";
 import { apiKey } from "../../config/constants";
 import { selectUser } from "../../store/user/selectors";
 import { removeCollab } from "../../store/list/actions";
+import { deleteList } from "../../store/list/actions";
 
 export default function ListDetailsEdit() {
   const [title, setTitle] = useState("");
@@ -25,6 +26,7 @@ export default function ListDetailsEdit() {
   const user = useSelector(selectUser);
   const list = useSelector(selectListDetails);
   moment.locale("en-gb"); // european date format
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchListDetails(id));
@@ -43,6 +45,9 @@ export default function ListDetailsEdit() {
     dispatch(removeRestaurant(listId, restaurantId));
   };
 
+  const removeList = (listId, history) => {
+    dispatch(deleteList(listId, history));
+  };
   if (!list) return <Loading />;
 
   return (
@@ -143,6 +148,20 @@ export default function ListDetailsEdit() {
               </div>
             </div>
           ))}
+          <button
+            onClick={() => removeList(list.id, history)}
+            style={{
+              display: "flex",
+              color: "#d62828",
+              border: "none",
+              backgroundColor: "white",
+              padding: "0",
+              marginTop: "20px",
+            }}
+          >
+            <i class="bi bi-x-circle-fill"></i>
+            <p style={{ marginLeft: "10px" }}>Delete Entire List</p>
+          </button>
         </div>
       ) : (
         <p style={{ color: "#d62828" }}>Only owners of the list can edit</p>

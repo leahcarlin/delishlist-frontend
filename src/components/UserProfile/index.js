@@ -3,9 +3,9 @@ import "../../pages/MyLists/MyLists.scss";
 
 export default function UserProfile(props) {
   const { user } = props;
-  const sharedLists = user.myLists.filter((list) => {
-    return list?.list.users?.length > 1;
-  });
+  // const sharedLists = user.myLists.filter((list) => {
+  //   return list?.list?.users?.length > 1;
+  // });
 
   return (
     <div
@@ -43,7 +43,7 @@ export default function UserProfile(props) {
         <p style={{ margin: "0" }}>
           <b>{user.myLists.length}</b> total lists
         </p>
-        {sharedLists.length === 1 ? (
+        {/* {sharedLists.length === 1 ? (
           <p>
             <b>1</b> shared list
           </p>
@@ -51,7 +51,7 @@ export default function UserProfile(props) {
           <p>
             <b>{sharedLists.length}</b> shared lists
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );

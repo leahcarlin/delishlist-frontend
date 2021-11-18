@@ -166,7 +166,7 @@ export const fetchMyLists = async (dispatch, getState) => {
   try {
     const { token } = selectUser(getState());
     // console.log("token", token);
-    const res = await axios.get(`${apiUrl}/mylists/all`, {
+    const res = await axios.get(`${apiUrl}/mylists`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     // console.log("res data", res.data);
