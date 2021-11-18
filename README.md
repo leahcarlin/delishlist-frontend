@@ -48,7 +48,7 @@ I started with brainstorming and creating a database diagram, wireframes, and us
 
 ## User Stories
 
-As a user:
+### As a user:
 
 - I'm interested in visiting new restaurants, everytime I hear of a good restaurant to try, I want to keep it on a list so that I can refer back to it when I’m in the mood to go out to eat.
 - I want to be able to see a specific list and add restaurants to it.
