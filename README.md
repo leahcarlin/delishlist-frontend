@@ -57,7 +57,7 @@ I started with brainstorming and creating a database diagram, wireframes, and us
 - My friends and I like to dine together, I want to be able to create a shared wish list where we can all collaborate and add our restaraunt ideas to the list.
 - If I need inspiration, I want to be able to browse a list of restaurants and have the option to view more details, add them to one of my lists, or add them as a favorite.
 
-### Wireframe:
+## Wireframe
 
 Go to [MockFlow](https://wireframepro.mockflow.com/mobile/view/delishlist) to see the wireframes
 
