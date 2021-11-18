@@ -4,7 +4,7 @@ See the deployed version [here](https://delish-list.netlify.app/)
 
 ## Description
 
-For my portfolio project during my full-stack javascript I built an app that allows users to create wish lists of restaurants they want to try. Users can share wish lists with friends and there can be multiple collaborators on a list. The front-end is created with JavaScript, React, Redux and CSS, and the back-end with an Express server, JWT & Bcrypt authentication and a PostgreSQL database with Sequelize ORM. I fetched restaurant data from Google Places API and rendered a map for each restaurant's location.
+For my portfolio project during my full-stack javascript bootcamp I built an app that allows users to create wish lists of restaurants they want to try. Users can share wish lists with friends and there can be multiple collaborators on a list. The front-end is created with JavaScript, React, Redux and CSS, and the back-end with an Express server, JWT & Bcrypt authentication and a PostgreSQL database with Sequelize ORM. I fetched restaurant data from Google Places API and rendered a map for each restaurant's location.
 
 I started with brainstorming and creating a database diagram, wireframes, and user stories followed by setting up the back end and working through each feature. I was able to apply many new concepts including many to many relations, using maps, and further my skills with React Redux.
 
