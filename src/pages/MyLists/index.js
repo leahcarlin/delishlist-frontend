@@ -11,7 +11,7 @@ import { fetchMyLists } from "../../store/user/actions";
 import "./MyLists.scss";
 import { Container, Row, Form, Col, Button } from "react-bootstrap";
 import { newList } from "../../store/user/actions";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function MyLists() {
   const user = useSelector(selectUser);
@@ -21,10 +21,12 @@ export default function MyLists() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [addList, setAddList] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
+    if (!token) history.push("/");
     dispatch(fetchMyLists);
-  }, [dispatch]);
+  }, [token, history, dispatch]);
 
   const submitList = () => {
     dispatch(newList(title));

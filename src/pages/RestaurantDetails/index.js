@@ -68,7 +68,7 @@ export default function RestaurantDetails() {
         ) : null}
       </Row>
       <Row className="RestDetails-row-2" style={{ marginBottom: "20px" }}>
-        {restaurant?.opening_hours.weekday_text.map((day) => (
+        {restaurant?.opening_hours?.weekday_text.map((day) => (
           <p style={{ margin: "0" }}>{day}</p>
         ))}
       </Row>
